@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<string name="settings_activity">Application Settings  </string>
+    
+
+<string name="max_level"> Adjust Max Brightness Limit</string>
+    <string name="value_max_level"> %s </string>
+    <string name="question_max_level">To prevent possible damage to this phones LED circuit, you can set a Maximum Possible Brightness Limit. \n \nNote: If your default brightness setting is higher than the limit, your default brightness setting will be reduced to the limit. </string>
+    <string name="set_max_level"> Limit the Maximum Possible Brightness. </string>
+    
+<string name="default_level"> Adjust Default Brightness </string>
+    <string name="value_default_level"> %s </string>
+    <string name="question_default_level"> Default Brightness is the Torch brightness when pressing the on button or tapping the 1x1 widget if Double/Rapid tap is off. </string>
+    <string name="set_default_level"> Set the default Brightness. \nCurrent Value: %s </string>  
+    
+<string name="quick_increments">Adjust Value of Quick Increments</string>
+    <string name="value_quick_increments"> %s </string>
+    <string name="question_quick_increments">This value is the number of levels the notification and widgets increment the Torch brightness by.  </string>
+    <string name="set_quick_increments">Use the slider below to set quick increment value.\nCurrent value: %s</string>
+    <string name="quick_increment_to_high">Quick Increment cannot be greater than Default Brightness</string>
+    
+<string name="double_tap"> Widget Double Tap </string>
+    <string name="double_tap_off"> Enable Widget Double Tap </string>
+    <string name="question_double_tap">This affects the 1x1 Widget \n\nWith DoubleTap enabled: \nYour first tap will turn the Torch on at brightness level 1. \nThe second tap will light the torch to your default brightness setting.</string>
+ 
+    
+<string name="rapid_tap"> Widget Rapid Tap </string>
+    <string name="rapid_tap_off"> Enable Widget Rapid Tap </string>
+    <string name="question_rapid_tap">This affects the 1x1 Widget \n\nWith RapidTap enabled: \nRapidly tapping thie widget will increment the Torch by the Quick increment setting each tap.</string>
+
+    
+<string name="tap_time"> Adjust Double/Rapid Tap Time Window</string>
+    <string name="value_tap_time"> %s ms </string>
+    <string name="question_tap_time">This effects Double/Rapid Tap: \n\n The time window in milliseconds between taps that will increase the brightness. \nIf you tap after this time, the Torch will shut off. </string>
+    <string name="set_tap_time"> Enter the maximum time allowed to Rapid tap or Double tap the 1x1 widget. \n Current value: %s ms</string>   
+    
+
+<string name="persistent_notif"> Persistent Notification </string>
+    <string name="persistent_notif_off"> Enable Persistent Notification </string>
+    <string name="question_persistent_notif">Enable Keeping the Torch in Andriods Notification drop down.</string>    
+  
+    
+<string name="minimize_notif"> Minimize Notification </string>
+    <string name="minimize_notif_off"> Hide Persistent Notification </string>
+    <string name="question_minimize_notif">Enable the Ability To Hide the Torch Notification when Persistent Notification is enabled. </string>      
+    
+ <string name="press_back_to_apply">Press Back Button To Apply Settings</string>   
+    
+</resources>

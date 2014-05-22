@@ -1,0 +1,255 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".SettingsActivity" >
+
+    <Button
+        android:id="@+id/setQuickIncrements_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignBaseline="@+id/questionQuickIncrements_BUTTON"
+        android:layout_alignBottom="@+id/questionQuickIncrements_BUTTON"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="@string/quick_increments"
+        android:textSize="@dimen/regular_text" />
+
+    <Button
+        android:id="@+id/questionDoubleTap_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/setQuickIncrements_BUTTON"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <ToggleButton
+        android:id="@+id/setDoubleTap_TOGGLE"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@+id/questionDoubleTap_BUTTON"
+        android:layout_alignLeft="@+id/setQuickIncrements_BUTTON"
+        android:layout_alignParentRight="true"
+        android:text="@string/double_tap"
+        android:textOff="@string/double_tap_off"
+        android:textOn="@string/double_tap_off"
+        android:textSize="@dimen/regular_text" />
+
+    <Button
+        android:id="@+id/questionRapidTap_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/questionDoubleTap_BUTTON"
+        android:layout_below="@+id/questionDoubleTap_BUTTON"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <TextView
+        android:id="@+id/valueQuickIncrements_TXTVIEW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/questionQuickIncrements_BUTTON"
+        android:layout_alignBottom="@+id/questionQuickIncrements_BUTTON"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/questionQuickIncrements_BUTTON"
+        android:gravity="center"
+        android:text="@string/value_quick_increments"
+        android:textSize="@dimen/big_text" />
+
+    <ToggleButton
+        android:id="@+id/setRapidTap_TOGGLE"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignBaseline="@+id/questionRapidTap_BUTTON"
+        android:layout_alignBottom="@+id/questionRapidTap_BUTTON"
+        android:layout_alignLeft="@+id/setDoubleTap_TOGGLE"
+        android:layout_alignParentRight="true"
+        android:text="@string/rapid_tap"
+        android:textOff="@string/rapid_tap_off"
+        android:textOn="@string/rapid_tap_off"
+        android:textSize="@dimen/regular_text" />
+
+    <Button
+        android:id="@+id/questionTapTime_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/questionRapidTap_BUTTON"
+        android:layout_below="@+id/questionRapidTap_BUTTON"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <Button
+        android:id="@+id/setTapTime_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignBaseline="@+id/questionTapTime_BUTTON"
+        android:layout_alignBottom="@+id/questionTapTime_BUTTON"
+        android:layout_alignLeft="@+id/setRapidTap_TOGGLE"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:minWidth="48dp"
+        android:text="@string/tap_time"
+        android:textSize="@dimen/very_small_text" />
+
+    <TextView
+        android:id="@+id/valueTapTime_TXTVIEW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/questionTapTime_BUTTON"
+        android:layout_alignBottom="@+id/questionTapTime_BUTTON"
+        android:layout_alignLeft="@+id/valueQuickIncrements_TXTVIEW"
+        android:layout_marginLeft="-10dp"
+        android:gravity="center"
+        android:text="@string/value_tap_time"
+        android:textSize="@dimen/regular_text" />
+
+    <Button
+        android:id="@+id/questionPersistNotif_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/questionTapTime_BUTTON"
+        android:layout_below="@+id/setTapTime_BUTTON"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <ToggleButton
+        android:id="@+id/setPersistNotif_TOGGLE"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignBaseline="@+id/questionPersistNotif_BUTTON"
+        android:layout_alignBottom="@+id/questionPersistNotif_BUTTON"
+        android:layout_alignLeft="@+id/setTapTime_BUTTON"
+        android:layout_alignParentRight="true"
+        android:text="@string/persistent_notif"
+        android:textOff="@string/persistent_notif_off"
+        android:textOn="@string/persistent_notif_off"
+        android:textSize="@dimen/regular_text" />
+
+    <Button
+        android:id="@+id/questionMinNotif_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/questionPersistNotif_BUTTON"
+        android:layout_below="@+id/setPersistNotif_TOGGLE"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <ToggleButton
+        android:id="@+id/setMinNotif_TOGGLE"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/setPersistNotif_TOGGLE"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/questionMinNotif_BUTTON"
+        android:text="@string/minimize_notif"
+        android:textOff="@string/minimize_notif_off"
+        android:textOn="@string/minimize_notif_off"
+        android:textSize="@dimen/regular_text" />
+
+    <Button
+        android:id="@+id/questionMaxLevel_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <Button
+        android:id="@+id/questionQuickIncrements_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/questionMaxLevel_BUTTON"
+        android:layout_below="@+id/questionDefaultLevel_BUTTON"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <Button
+        android:id="@+id/setMaxLevel_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/questionQuickIncrements_BUTTON"
+        android:layout_alignBaseline="@+id/questionMaxLevel_BUTTON"
+        android:layout_alignLeft="@+id/setQuickIncrements_BUTTON"
+        android:gravity="center"
+        android:text="@string/max_level"
+        android:textSize="@dimen/regular_text" />
+
+    <TextView
+        android:id="@+id/valueMaxLevel_TXTVIEW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/questionMaxLevel_BUTTON"
+        android:layout_alignBottom="@+id/questionMaxLevel_BUTTON"
+        android:layout_alignLeft="@+id/valueQuickIncrements_TXTVIEW"
+        android:layout_marginLeft="-10dp"
+        android:gravity="center"
+        android:text="@string/value_max_level"
+        android:textSize="@dimen/big_text" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="@string/press_back_to_apply"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/questionDefaultLevel_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/questionMaxLevel_BUTTON"
+        android:layout_below="@+id/questionMaxLevel_BUTTON"
+        android:layout_marginTop="15dp"
+        android:text="@string/question"
+        android:textSize="@dimen/big_text" />
+
+    <Button
+        android:id="@+id/setDefaultLevel_BUTTON"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/setMaxLevel_BUTTON"
+        android:layout_alignTop="@+id/questionDefaultLevel_BUTTON"
+        android:gravity="center"
+        android:text="@string/default_level"
+        android:textSize="@dimen/regular_text" />
+
+    <TextView
+        android:id="@+id/valueDefaultLevel_TXTVIEW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/questionDefaultLevel_BUTTON"
+        android:layout_alignBottom="@+id/questionDefaultLevel_BUTTON"
+        android:layout_alignLeft="@+id/valueQuickIncrements_TXTVIEW"
+        android:gravity="center"
+        android:text="@string/value_default_level"
+        android:textSize="@dimen/big_text" />
+
+</RelativeLayout>
