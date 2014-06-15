@@ -1,5 +1,8 @@
 package com.derekziemba.ztorch;
 
+import android.app.IntentService;
+import android.content.Intent;
+
 
 public class ResultsService extends IntentService {
 	public ResultsService() {

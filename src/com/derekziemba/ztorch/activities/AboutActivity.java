@@ -1,5 +1,9 @@
 package com.derekziemba.ztorch.activities;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+
 import com.derekziemba.ztorch.R;
 
 public class AboutActivity extends Activity {

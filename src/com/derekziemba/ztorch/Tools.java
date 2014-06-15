@@ -1,5 +1,18 @@
 package com.derekziemba.ztorch;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 public class Tools {
@@ -11,7 +24,6 @@ public class Tools {
 		NO_ROOT,
 		NO_ROOT_ACCESS
 	}
-
 
 	public static void createDialog(	
 			int titleId, 

@@ -1,5 +1,9 @@
 package com.derekziemba.ztorch;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.preference.PreferenceManager;
+
 import com.derekziemba.ztorch.providers.Notifier;
 
 public class Global {

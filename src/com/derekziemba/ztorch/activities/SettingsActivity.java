@@ -1,6 +1,20 @@
 package com.derekziemba.ztorch.activities;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import com.derekziemba.ztorch.Global;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.TorchConfig;
