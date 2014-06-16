@@ -9,14 +9,8 @@ public class BrightnessBehavior {
 	
 	public BrightnessBehavior(String behaviorScheme) {
 		List<BrightnessTime> temp = new ArrayList<BrightnessTime>();
-		if(stepExtractor(temp, behaviorScheme)) {
-			this.steps = temp;
-		}
-		else {
-			error = true;
-			this.steps = temp;  
-		}
-		
+		error = stepExtractor(temp, behaviorScheme);
+		this.steps = temp;
 	}
 	
 	public List<BrightnessTime> getSteps() {
