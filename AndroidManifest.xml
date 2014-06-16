@@ -30,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name="com.derekziemba.ztorch.BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -88,6 +89,10 @@
         <activity
             android:name="com.derekziemba.ztorch.activities.AboutActivity"
             android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.derekziemba.torchplayer.TorchPlayer"
+            android:label="@string/title_activity_torch_player" >
         </activity>
     </application>
 

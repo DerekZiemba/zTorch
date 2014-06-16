@@ -13,6 +13,11 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -37,15 +42,17 @@ public final class R {
         public static final int EditText01=0x7f090003;
         public static final int TextView02=0x7f090002;
         public static final int TextView04=0x7f090006;
-        public static final int action_about=0x7f09002e;
-        public static final int action_settings=0x7f09002c;
-        public static final int button_decrease=0x7f09002a;
-        public static final int button_increase=0x7f09002b;
-        public static final int editText1=0x7f090004;
+        public static final int TorchPlayerInstructions=0x7f090004;
+        public static final int TorchPlayerPlay=0x7f090027;
+        public static final int action_about=0x7f09002f;
+        public static final int action_settings=0x7f09002d;
+        public static final int action_torch_player=0x7f090030;
+        public static final int button_decrease=0x7f09002b;
+        public static final int button_increase=0x7f09002c;
         public static final int flashlightBrightnessSlider=0x7f090007;
         public static final int flashlightToggleButton=0x7f090008;
-        public static final int icon_button=0x7f090029;
-        public static final int instructions_textview=0x7f090027;
+        public static final int icon_button=0x7f09002a;
+        public static final int instructions_textview=0x7f090028;
         public static final int nButton=0x7f09000c;
         public static final int nnButton=0x7f09000b;
         public static final int pButton=0x7f09000a;
@@ -58,7 +65,7 @@ public final class R {
         public static final int questionQuickIncrements_BUTTON=0x7f090015;
         public static final int questionRapidTap_BUTTON=0x7f090018;
         public static final int questionTapTime_BUTTON=0x7f09001b;
-        public static final int seekbar=0x7f090028;
+        public static final int seekbar=0x7f090029;
         public static final int setDefaultLevel_BUTTON=0x7f090025;
         public static final int setDoubleTap_TOGGLE=0x7f090017;
         public static final int setMaxLevel_BUTTON=0x7f090023;
@@ -67,7 +74,7 @@ public final class R {
         public static final int setQuickIncrements_BUTTON=0x7f090014;
         public static final int setRapidTap_TOGGLE=0x7f09001a;
         public static final int setTapTime_BUTTON=0x7f09001c;
-        public static final int set_maximum=0x7f09002d;
+        public static final int set_maximum=0x7f09002e;
         public static final int textView1=0x7f090000;
         public static final int textView2=0x7f090001;
         public static final int textViewBrightnessValue=0x7f090013;
@@ -86,14 +93,16 @@ public final class R {
         public static final int activity_about=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_settings=0x7f030002;
-        public static final int new_maximum_layout=0x7f030003;
-        public static final int small_widget_layout=0x7f030004;
-        public static final int static_widget_layout=0x7f030005;
+        public static final int activity_torch_player=0x7f030003;
+        public static final int new_maximum_layout=0x7f030004;
+        public static final int small_widget_layout=0x7f030005;
+        public static final int static_widget_layout=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f080000;
     }
     public static final class string {
+        public static final int TorchPlayer=0x7f05004c;
         public static final int about_bitcoin=0x7f050022;
         public static final int about_bitcoin_address=0x7f050023;
         public static final int about_bugs=0x7f050026;
@@ -105,6 +114,7 @@ public final class R {
         public static final int action_set_widget_brightness=0x7f050027;
         public static final int action_settings=0x7f050029;
         public static final int action_toggle_button=0x7f050028;
+        public static final int action_torch_player=0x7f05004d;
         public static final int app_name=0x7f05001f;
         public static final int cancel=0x7f050036;
         public static final int current_default_brightness=0x7f05002f;
@@ -116,6 +126,7 @@ public final class R {
         public static final int device_not_rooted=0x7f050030;
         public static final int double_tap=0x7f05000e;
         public static final int double_tap_off=0x7f05000f;
+        public static final int editable=0x7f05004e;
         public static final int error=0x7f050031;
         public static final int hello_world=0x7f050032;
         public static final int max_level=0x7f050001;
@@ -158,6 +169,7 @@ public final class R {
         public static final int ticker_text=0x7f050041;
         public static final int title_activity_about=0x7f05004a;
         public static final int title_activity_settings=0x7f050049;
+        public static final int title_activity_torch_player=0x7f05004b;
         public static final int toast_done=0x7f050045;
         public static final int toast_set_widget_off=0x7f050042;
         public static final int toast_toggle_off=0x7f050044;

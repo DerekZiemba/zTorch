@@ -1,5 +1,7 @@
 package com.derekziemba.ztorch;
 
+import com.derekziemba.torchplayer.TorchConfig;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

@@ -2,7 +2,6 @@ package com.derekziemba.ztorch.activities;
 
 import android.os.Bundle;
 import android.app.Activity;
-
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,10 +21,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
+
+import com.derekziemba.torchplayer.TorchConfig;
+import com.derekziemba.torchplayer.TorchPlayer;
 import com.derekziemba.ztorch.Global;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.Tools;
-import com.derekziemba.ztorch.TorchConfig;
 import com.stericson.RootTools.RootTools;
 
 public class MainActivity extends Activity {
@@ -268,6 +269,10 @@ public class MainActivity extends Activity {
 		case R.id.action_settings:
 			Intent settingsIntention = new Intent(this,SettingsActivity.class);
 			this.startActivityForResult(settingsIntention,0);
+			return true;
+		case R.id.action_torch_player:
+			Intent torchplayerIntention = new Intent(this,TorchPlayer.class);
+			this.startActivityForResult(torchplayerIntention,0);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

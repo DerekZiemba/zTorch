@@ -8,4 +8,6 @@
     
     <item android:id="@+id/set_maximum" android:title="@string/set_maximum"></item>
     <item android:id="@+id/action_about" android:title="@string/action_about"></item>
+    <item android:id="@+id/action_torch_player" android:title="@string/action_torch_player"></item>
+    
 </menu>

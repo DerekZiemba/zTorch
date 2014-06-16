@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.derekziemba.torchplayer.TorchConfig;
 import com.derekziemba.ztorch.Global;
 import com.derekziemba.ztorch.R;
-import com.derekziemba.ztorch.TorchConfig;
 
 public class SettingsActivity extends Activity {
 	

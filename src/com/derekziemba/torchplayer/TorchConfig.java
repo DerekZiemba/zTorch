@@ -1,4 +1,4 @@
-package com.derekziemba.ztorch;
+package com.derekziemba.torchplayer;
 
 
 import java.io.File;
@@ -9,7 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
+import com.derekziemba.ztorch.Global;
+import com.derekziemba.ztorch.activities.MainActivity;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.Command;
 import com.stericson.RootTools.execution.CommandCapture;
@@ -17,6 +20,8 @@ import com.stericson.RootTools.execution.Shell;
 
 public class TorchConfig 
 {
+	private static final boolean ignoreDeviceValidity = false; //for testing in emulator
+	
 	private static String FLASH_FILE = null;
 	private static final String SETTINGS_ROOT_ACCESS = "root_access_granted";
 	private static final String SETTINGS_VALID_SYSFILE = "valid_sysfs_file";
@@ -30,7 +35,7 @@ public class TorchConfig
 			"/sys/class/leds/torch-flash/flash_light" 
 	};
 
-	private static final int AbsoluteMaxBrightness = 16;
+	public static final int AbsoluteMaxBrightness = 16;
 	private static final String SETTING_CURRENT_BRIGHTNESS = "flash_current_value";
 	private static final String SETTING_LIMIT_VALUE = "flash_limit_value";
 	private static final String SETTING_INCREMENTS_STEPS = "brightness_increment_steps";
@@ -258,14 +263,27 @@ public class TorchConfig
 	
 	public static boolean checkValidity(Context c, int value) 
 	{
-		if (value > AbsoluteMaxBrightness) 	{	return false;	}
+		if (value > AbsoluteMaxBrightness | value < 0) 	
+		{	
+			Toast.makeText(c, "UNSUPPORTED OR INVALID: \n-BRIGHTNESS LEVEL", Toast.LENGTH_SHORT).show();
+			return false;	
+		}
+		SharedPreferences settings = 	PreferenceManager.getDefaultSharedPreferences(c);
 		
-		SharedPreferences settings = 
-				PreferenceManager.getDefaultSharedPreferences(c);
+		if(ignoreDeviceValidity) return ignoreDeviceValidity; //for android emulator
 		
 		if(settings.getInt(SETTINGS_VALID_SYSFILE, 0) == 1) 
 		{
-			if(settings.getInt(SETTINGS_ROOT_ACCESS, 0) == 1) 	{	return true;	}
+			if(settings.getInt(SETTINGS_ROOT_ACCESS, 0) == 1) 	
+			{					
+				return true;	
+			}
+			else {
+				Toast.makeText(c, "UNSUPPORTED OR INVALID: \n-ROOT ACCESS", Toast.LENGTH_SHORT).show();
+			}
+		}
+		else {
+			Toast.makeText(c, "UNSUPPORTED OR INVALID: \n-DEVICE", Toast.LENGTH_SHORT).show();
 		}
 		return false;
 	}

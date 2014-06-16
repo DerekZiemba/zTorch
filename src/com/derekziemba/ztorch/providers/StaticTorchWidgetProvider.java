@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.derekziemba.torchplayer.TorchConfig;
 import com.derekziemba.ztorch.Global;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.Tools;
-import com.derekziemba.ztorch.TorchConfig;
 
 public class StaticTorchWidgetProvider extends AppWidgetProvider {
 	public static final String WIDGET_TAG = "TorchWidget";
