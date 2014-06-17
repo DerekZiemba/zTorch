@@ -47,8 +47,8 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_torch_player">TorchPlayer</string>
-    <string name="TorchPlayer">EXPERIMENTAL:  \nPlay a string of torch commands.  \nAllows for Strobing and etc. 
-        \n\nThe Format is: \n   (level)/(time), (level)/(time), etc.
+    <string name="TorchPlayer">Play a string of torch commands. 
+        \nThe Format is: (level)/(time), (level)/(time), etc.
         \n\nRaw time values are measured in milliseconds.  
         \nTo specifiy seconds or minutes, use s or m following the raw time value</string>
 	<string name="action_torch_player">TorchPlayer</string>

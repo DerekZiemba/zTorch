@@ -6,12 +6,17 @@ public class InputParsers {
 
 	static boolean stepExtractor(List<BrightnessTime> result, String behavior) {
 		//ex:  1/20m , 4/10m, 9/3.5m, 12/2m, 16/30s
-		String scheme = behavior.replaceAll("[^0-9/sm,.]+","");
+		String scheme = behavior.replaceAll("[^0-9/sm,.()*]+","");
 		
 		String[] steps = scheme.split(",");
 		boolean foundError = false;
 		for(int i=0; i < steps.length; i++){
 			BrightnessTime temp = new BrightnessTime(0,0);
+			
+			if(steps[i].contains("[()]+")){
+				String amount = steps[i].substring(steps[i].indexOf(")*"));
+			}
+			
 			if( InputParsers.stepParser(temp, steps[i]) ) {
 				result.add(temp);
 			}

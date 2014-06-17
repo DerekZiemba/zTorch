@@ -9,27 +9,61 @@ import com.stericson.RootTools.execution.CommandCapture;
 import com.stericson.RootTools.execution.Shell;
 
 public class TorchControlThread implements Runnable {
-
-	BrightnessBehavior behaviorScheme;
 	
-	public TorchControlThread(String command) {
+	public static enum Options{
+		ADVANCE,
+		REGRESS,
+		REPEAT,
+		FALLBACK,
+		NOOP
+	}
+
+	private BrightnessBehavior behaviorScheme;
+	private Shell shell;
+	private String flashfile;
+	private Options option;
+	
+	Boolean stop = false;
+
+	public void config(String command, Options option) {
 		this.behaviorScheme = new BrightnessBehavior(command);
+		this.option = option;
+	}
+	
+	public void requestStop() {
+	    this.stop = true;
+	}
+	public void requestResume() {
+	    this.stop = false;
 	}
 	
 	@Override
 	public void run() {		
-		Shell shell = getShell();
-		String flashfile = TorchConfig.getSysFsFile();
-
-		for( BrightnessTime bt : behaviorScheme.getSteps()) {
-			String commandString = 	"echo " + String.valueOf(bt.getLevel()) + " > "+ flashfile;	
-			CommandCapture command = new CommandCapture(0, commandString);
-			
-			try {	shell.add(command);
-			} catch (IOException e) {	e.printStackTrace();	}		
-			
-			sleep(bt.getTime());
+		shell = getShell();
+		flashfile = TorchConfig.getSysFsFile();
+	
+		while(!stop && !Thread.interrupted()){
+			for( BrightnessTime bt : behaviorScheme.getSteps()) {
+				execute(shell, flashfile, bt.getLevel());
+				try {
+					Thread.sleep(bt.getTime());
+				} catch (InterruptedException e) {
+					execute(shell,flashfile,0);
+					return;
+				}
+			}
+			stop = (Options.REPEAT == option) ?  false : true;
 		}
+		execute(shell,flashfile,0);
+	}
+
+	private void execute(Shell shell, String file, int level) {
+		try {	
+			String commandString = 	"echo " + String.valueOf(level) + " > "+ file;	
+			shell.add(new CommandCapture(0, commandString));
+		} catch (IOException e) {	
+			e.printStackTrace();	
+		}	
 	}
 	
 	private Shell getShell() {
@@ -46,14 +80,6 @@ public class TorchControlThread implements Runnable {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public void sleep(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
