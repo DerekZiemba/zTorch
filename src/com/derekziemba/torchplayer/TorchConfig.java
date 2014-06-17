@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import com.derekziemba.ztorch.Global;
+import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.activities.MainActivity;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.Command;
@@ -20,7 +20,7 @@ import com.stericson.RootTools.execution.Shell;
 
 public class TorchConfig 
 {
-	private static final boolean ignoreDeviceValidity = false; //for testing in emulator
+	private static final boolean ignoreDeviceValidity = true; //for testing in emulator
 	
 	private static String FLASH_FILE = null;
 	private static final String SETTINGS_ROOT_ACCESS = "root_access_granted";
@@ -50,10 +50,10 @@ public class TorchConfig
 	{
 		setCurrentBrightnessPref(context, value);
 		Intent broadcastIntent =
-				new Intent(Global.FLASH_VALUE_UPDATED_BROADCAST_NAME);
-		broadcastIntent.putExtra(Global.KEY_NEW_VALUE, value);
+				new Intent(Z.FLASH_VALUE_UPDATED_BROADCAST_NAME);
+		broadcastIntent.putExtra(Z.KEY_NEW_VALUE, value);
 		context.sendBroadcast(broadcastIntent);
-		Global.setNotification(context, value);
+		Z.setNotification(context, value);
 	}
 
 	/*******************************************************************************
@@ -289,7 +289,7 @@ public class TorchConfig
 	}
 
 	
-	private static String getSysFsFile() 
+	public static String getSysFsFile() 
 	{
 		if (FLASH_FILE != null)  return FLASH_FILE;
 		

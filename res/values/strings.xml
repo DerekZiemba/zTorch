@@ -53,4 +53,6 @@
         \nTo specifiy seconds or minutes, use s or m following the raw time value</string>
 	<string name="action_torch_player">TorchPlayer</string>
 	<string name="editable"> %s </string>
+	<string name="TorchPlayerPlayButton">Play</string>
+	<string name="TorchPlayerStop">Stop</string>
 </resources>

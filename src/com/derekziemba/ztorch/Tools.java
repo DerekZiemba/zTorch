@@ -24,7 +24,7 @@ public class Tools {
 		NO_ROOT,
 		NO_ROOT_ACCESS
 	}
-
+	
 	public static void createDialog(	
 			int titleId, 
 			int messageId, 
@@ -129,7 +129,7 @@ public class Tools {
 		{
 		
 		case NO_SYSFS_FILE:
-			if(!Global.debugmode) 
+			if(!Z.debugmode) 
 			{
 				createDialog(	
 					R.string.error, 				//titleID
@@ -142,7 +142,7 @@ public class Tools {
 						public void onClick(DialogInterface dialog, int which) 
 						{
 							dialog.dismiss();
-							Uri packageUri = Uri.parse(String.format("package:%s", Global.PACKAGE_NAME));
+							Uri packageUri = Uri.parse(String.format("package:%s", Z.PACKAGE_NAME));
 							Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
 							context.startActivity(uninstallIntent);				
 							context.finish();

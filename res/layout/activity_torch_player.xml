@@ -30,14 +30,25 @@
         <requestFocus />
     </EditText>
 
-    <Button
+    <ToggleButton
         android:id="@+id/TorchPlayerPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/TorchPlayerInstructions"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="ToggleButton"
+        android:textOff="@string/TorchPlayerPlayButton"
+        android:textOn="@string/TorchPlayerStop" />
+
+    <CheckBox
+        android:id="@+id/repeatCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignRight="@+id/TorchPlayerInstructions"
-        android:layout_marginBottom="18dp"
-        android:text="Play" />
+        android:layout_below="@+id/TorchPlayerInstructions"
+        android:layout_marginTop="18dp"
+        android:text="Repeat" />
+
 </RelativeLayout>
 

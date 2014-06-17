@@ -44,15 +44,15 @@ public final class R {
         public static final int TextView04=0x7f090006;
         public static final int TorchPlayerInstructions=0x7f090004;
         public static final int TorchPlayerPlay=0x7f090027;
-        public static final int action_about=0x7f09002f;
-        public static final int action_settings=0x7f09002d;
-        public static final int action_torch_player=0x7f090030;
-        public static final int button_decrease=0x7f09002b;
-        public static final int button_increase=0x7f09002c;
+        public static final int action_about=0x7f090030;
+        public static final int action_settings=0x7f09002e;
+        public static final int action_torch_player=0x7f090031;
+        public static final int button_decrease=0x7f09002c;
+        public static final int button_increase=0x7f09002d;
         public static final int flashlightBrightnessSlider=0x7f090007;
         public static final int flashlightToggleButton=0x7f090008;
-        public static final int icon_button=0x7f09002a;
-        public static final int instructions_textview=0x7f090028;
+        public static final int icon_button=0x7f09002b;
+        public static final int instructions_textview=0x7f090029;
         public static final int nButton=0x7f09000c;
         public static final int nnButton=0x7f09000b;
         public static final int pButton=0x7f09000a;
@@ -65,7 +65,8 @@ public final class R {
         public static final int questionQuickIncrements_BUTTON=0x7f090015;
         public static final int questionRapidTap_BUTTON=0x7f090018;
         public static final int questionTapTime_BUTTON=0x7f09001b;
-        public static final int seekbar=0x7f090029;
+        public static final int repeatCheckBox=0x7f090028;
+        public static final int seekbar=0x7f09002a;
         public static final int setDefaultLevel_BUTTON=0x7f090025;
         public static final int setDoubleTap_TOGGLE=0x7f090017;
         public static final int setMaxLevel_BUTTON=0x7f090023;
@@ -74,7 +75,7 @@ public final class R {
         public static final int setQuickIncrements_BUTTON=0x7f090014;
         public static final int setRapidTap_TOGGLE=0x7f09001a;
         public static final int setTapTime_BUTTON=0x7f09001c;
-        public static final int set_maximum=0x7f09002e;
+        public static final int set_maximum=0x7f09002f;
         public static final int textView1=0x7f090000;
         public static final int textView2=0x7f090001;
         public static final int textViewBrightnessValue=0x7f090013;
@@ -103,6 +104,8 @@ public final class R {
     }
     public static final class string {
         public static final int TorchPlayer=0x7f05004c;
+        public static final int TorchPlayerPlayButton=0x7f05004f;
+        public static final int TorchPlayerStop=0x7f050050;
         public static final int about_bitcoin=0x7f050022;
         public static final int about_bitcoin_address=0x7f050023;
         public static final int about_bugs=0x7f050026;

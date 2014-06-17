@@ -2,12 +2,13 @@ package com.derekziemba.ztorch;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.derekziemba.ztorch.providers.Notifier;
 
-public class Global {
-	public static final String PACKAGE_NAME = Global.class.getPackage().getName();
+public class Z {
+	public static final String PACKAGE_NAME = Z.class.getPackage().getName();
 	
 	public static final String FILENAME = "zTorch_Preferences";
 
@@ -31,57 +32,57 @@ public class Global {
 	public static final boolean debugmode = true;
 	
 	public static void setNotification(Context context, int level) {
-		boolean persist = Global.getPersistNotif(context);
-		boolean minimize = Global.getMinimizeNotif(context);
+		boolean persist = Z.getPersistNotif(context);
+		boolean minimize = Z.getMinimizeNotif(context);
 		
 		Notifier note = new Notifier(context, persist, minimize,  level);
 		note.create();
 	}
 		
 	public static boolean getPersistNotif(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SETTINGS_ENABLE_PERSISTENT_NOTIF,false);
+		return Z.prefs(context).getBoolean(SETTINGS_ENABLE_PERSISTENT_NOTIF,false);
 	}
 	public static void setPersistNotif(Context context, boolean value) {
 		NotificationManager mgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mgr.cancelAll();
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(Global.SETTINGS_ENABLE_PERSISTENT_NOTIF, value).commit();
+		Z.prefs(context).edit().putBoolean(Z.SETTINGS_ENABLE_PERSISTENT_NOTIF, value).commit();
 	}	
 	
 	public static boolean getMinimizeNotif(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SETTINGS_ENABLE_MINIMIZE_NOTIF,false);
+		return Z.prefs(context).getBoolean(SETTINGS_ENABLE_MINIMIZE_NOTIF,false);
 	}
 	public static void setMinimizeNotif(Context context, boolean value) {
 		NotificationManager mgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mgr.cancelAll();
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(Global.SETTINGS_ENABLE_MINIMIZE_NOTIF, value).commit();
+		Z.prefs(context).edit().putBoolean(Z.SETTINGS_ENABLE_MINIMIZE_NOTIF, value).commit();
 	}	
 
 	public static int getDefaultBrightness(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getInt(SETTINGS_DEFAULT_BRIGHTNESS,StockBrightness);
+		return Z.prefs(context).getInt(SETTINGS_DEFAULT_BRIGHTNESS,StockBrightness);
 	}
 	public static void setDefaultBrightness(Context context, int value) {
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(Global.SETTINGS_DEFAULT_BRIGHTNESS, value).commit();
+		Z.prefs(context).edit().putInt(Z.SETTINGS_DEFAULT_BRIGHTNESS, value).commit();
 	}
 	
 	public static boolean getDoubleTap(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SETTINGS_ENABLE_DOUBLE_TAP,false);
+		return Z.prefs(context).getBoolean(SETTINGS_ENABLE_DOUBLE_TAP,false);
 	}
 	public static void setDoubleTap(Context context, boolean value) {
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(Global.SETTINGS_ENABLE_DOUBLE_TAP, value).commit();
+		Z.prefs(context).edit().putBoolean(Z.SETTINGS_ENABLE_DOUBLE_TAP, value).commit();
 	}
 	
 	public static boolean getRapidTap(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SETTINGS_ENABLE_RAPID_TAP,false);
+		return Z.prefs(context).getBoolean(SETTINGS_ENABLE_RAPID_TAP,false);
 	}
 	public static void setRapidTap(Context context, boolean value) {
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(Global.SETTINGS_ENABLE_RAPID_TAP, value).commit();
+		Z.prefs(context).edit().putBoolean(Z.SETTINGS_ENABLE_RAPID_TAP, value).commit();
 	}
 	
 	public static int getTapTime(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getInt(SETTINGS_TAP_TIME,default_tap_time);
+		return Z.prefs(context).getInt(SETTINGS_TAP_TIME,default_tap_time);
 	}
 	public static void setTapTime(Context context, int value) {
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(Global.SETTINGS_TAP_TIME, value).commit();
+		Z.prefs(context).edit().putInt(Z.SETTINGS_TAP_TIME, value).commit();
 	}
 	
 	public static boolean getWidgetQuickTap(Context context) {
@@ -91,10 +92,14 @@ public class Global {
 	
 	
 	public static long getLastTime(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context).getLong(TEMP_TIME,default_tap_time);
+		return Z.prefs(context).getLong(TEMP_TIME,default_tap_time);
 	}
 	public static void setLastTime(Context context, long value) {
-		PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(Global.TEMP_TIME, value).commit();
+		Z.prefs(context).edit().putLong(Z.TEMP_TIME, value).commit();
+	}
+
+	public static SharedPreferences prefs(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 	
 }

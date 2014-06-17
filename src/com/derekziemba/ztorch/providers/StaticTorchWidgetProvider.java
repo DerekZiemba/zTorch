@@ -5,11 +5,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.derekziemba.torchplayer.TorchConfig;
-import com.derekziemba.ztorch.Global;
+import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.Tools;
 
@@ -27,14 +26,14 @@ public class StaticTorchWidgetProvider extends AppWidgetProvider {
 		super.onReceive(context, intent);
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);		
 		if(appWidgetManager!=null) {
-			int newValue = intent.getIntExtra(Global.KEY_NEW_VALUE, 0);		
+			int newValue = intent.getIntExtra(Z.KEY_NEW_VALUE, 0);		
 			if(newValue==0) {
 				getRemoteView(context).setImageViewResource(R.id.icon_button, R.drawable.ic_flash_off);
 			} else {
 				getRemoteView(context).setImageViewResource(R.id.icon_button, R.drawable.ic_flash_on);
 			}
 			int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(context, StaticTorchWidgetProvider.class));
-			Log.i(WIDGET_TAG, "Hail! "+ids);
+			//Log.i(WIDGET_TAG, "Hail! "+ids);
 			
 			for(int i=0; i<ids.length; i++){
 				int appWidgetId = ids[i];
@@ -47,7 +46,7 @@ public class StaticTorchWidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
-		Log.i(WIDGET_TAG, "onUpdateStatic");
+		//Log.i(WIDGET_TAG, "onUpdateStatic");
 		final int N = appWidgetIds.length;
 		int currentStatus = TorchConfig.getCurrentBrightness(context);	
 		for (int i=0; i<N; i++) {

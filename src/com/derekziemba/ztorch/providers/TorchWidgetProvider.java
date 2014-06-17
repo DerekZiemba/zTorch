@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.derekziemba.ztorch.R;
@@ -19,7 +18,7 @@ public class TorchWidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
-		Log.i(WIDGET_TAG, "onUpdate");
+		//Log.i(WIDGET_TAG, "onUpdate");
 		final int N = appWidgetIds.length;
 		for (int i=0; i<N; i++) {
 			int appWidgetId = appWidgetIds[i];

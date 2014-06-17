@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
-import com.derekziemba.ztorch.Global;
+import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.ResultsService;
 import com.derekziemba.ztorch.activities.MainActivity;
@@ -104,7 +104,7 @@ public class Notifier {
 		builder.setContentIntent(pending);
 		Notification notification = builder.build();
 		if (Build.VERSION.SDK_INT >= 16) {	notification.priority = priority;	}
-		mgr.notify(Global.mNotificationId, notification);
+		mgr.notify(Z.mNotificationId, notification);
 	}
 	
 

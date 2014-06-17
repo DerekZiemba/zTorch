@@ -23,5 +23,10 @@ public class BrightnessTime {
 		this.time = milliseconds;
 	}
 	
+	public String toString() {
+		return getLevel() + "/" + InputParsers.fromMillis(getTime());
+	}
+	
+	
 	
 }

@@ -43,19 +43,19 @@ public class ResultsService extends IntentService {
 	
 	private void multiTapHandler() 
 	{
-		boolean doubletap = Global.getDoubleTap(this);
-		boolean rapidtap = Global.getRapidTap(this);		
+		boolean doubletap = Z.getDoubleTap(this);
+		boolean rapidtap = Z.getRapidTap(this);		
 		if(doubletap || rapidtap) {			
 			long time = System.currentTimeMillis();
-			long lasttime = Global.getLastTime(getApplicationContext());
-			int period = Global.getTapTime(getApplicationContext());
-			Global.setLastTime(getApplicationContext(), time);
+			long lasttime = Z.getLastTime(getApplicationContext());
+			int period = Z.getTapTime(getApplicationContext());
+			Z.setLastTime(getApplicationContext(), time);
 			int level = TorchConfig.getCurrentBrightness(this);			
 			if(lasttime+period >= time) 
 			{								
 				if(doubletap) 
 				{
-					int defaultLevel = Global.getDefaultBrightness(this); 
+					int defaultLevel = Z.getDefaultBrightness(this); 
 					if(level == 0) { 	level = 1;	}
 					else if(level != defaultLevel) {	level = defaultLevel; 	}
 					else if(level == defaultLevel) {	level = 0;	}
@@ -71,7 +71,7 @@ public class ResultsService extends IntentService {
 		else {
 			if(TorchConfig.getCurrentBrightness(getApplicationContext())==0) 
 			{
-				TorchConfig.setTorch(getApplicationContext(), Global.getDefaultBrightness(this));
+				TorchConfig.setTorch(getApplicationContext(), Z.getDefaultBrightness(this));
 			} 
 			else {	TorchConfig.setTorch(getApplicationContext(),0);	}
 		}

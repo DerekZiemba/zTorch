@@ -24,7 +24,7 @@ import android.widget.ToggleButton;
 
 import com.derekziemba.torchplayer.TorchConfig;
 import com.derekziemba.torchplayer.TorchPlayer;
-import com.derekziemba.ztorch.Global;
+import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.Tools;
 import com.stericson.RootTools.RootTools;
@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 		initPreferences();
 		initTextViews();
 		
-		registerReceiver(mFlashValueUpdatedReceiver,new IntentFilter(Global.FLASH_VALUE_UPDATED_BROADCAST_NAME));
+		registerReceiver(mFlashValueUpdatedReceiver,new IntentFilter(Z.FLASH_VALUE_UPDATED_BROADCAST_NAME));
 
 		if (mBrightnessSlider != null) {	
 			mBrightnessSlider.setMax(mAbsMaxVBrightness);
@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
 		txtCurrentBrightnessValue.setText(getText(R.string.current_level_value).toString().replace("%s", String.valueOf(0)) );
 		
 		txtDefaultWidgetBrightness.setText(getText(R.string.current_default_brightness).toString().replace("%s", 
-				String.valueOf(Global.getDefaultBrightness(getApplicationContext()))) );
+				String.valueOf(Z.getDefaultBrightness(getApplicationContext()))) );
 		
 		txtUsersBrightnessLimit.setText(getText(R.string.current_limit_val).toString().replace("%s", 
 				String.valueOf( TorchConfig.getBrightnessLimitValue(getApplicationContext())) +
@@ -147,7 +147,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				int progress = TorchConfig.getCurrentBrightness(getApplicationContext());
-				int brightness = Global.getDefaultBrightness(getApplicationContext());	
+				int brightness = Z.getDefaultBrightness(getApplicationContext());	
 	
 				if (progress == 0) {
 					updateTorchBroadcast(brightness);
@@ -172,7 +172,7 @@ public class MainActivity extends Activity {
 				if (progress == 0) {
 					Toast.makeText(MainActivity.this, R.string.toast_set_widget_off, Toast.LENGTH_SHORT).show();
 				} else {
-					Global.setDefaultBrightness(getApplicationContext(), progress);
+					Z.setDefaultBrightness(getApplicationContext(), progress);
 					txtDefaultWidgetBrightness.setText(getText(R.string.current_default_brightness).toString().replace("%s", String.valueOf(progress)) );
 					Toast.makeText(MainActivity.this, R.string.toast_done, Toast.LENGTH_SHORT).show();
 				}
@@ -228,12 +228,12 @@ public class MainActivity extends Activity {
 	BroadcastReceiver mFlashValueUpdatedReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (Global.FLASH_VALUE_UPDATED_BROADCAST_NAME.equals(intent.getAction())) {	
-				int value = intent.getIntExtra(Global.KEY_NEW_VALUE, 0);	
+			if (Z.FLASH_VALUE_UPDATED_BROADCAST_NAME.equals(intent.getAction())) {	
+				int value = intent.getIntExtra(Z.KEY_NEW_VALUE, 0);	
 				mBrightnessSlider.setProgress(value);
 				mToggleButton.setChecked((value>0));
 				txtCurrentBrightnessValue.setText(getText(R.string.current_level_value).toString().replace("%s", String.valueOf(value)) );
-				Global.setNotification(context, value);
+				Z.setNotification(context, value);
 			}
 		}
 	};
@@ -241,8 +241,8 @@ public class MainActivity extends Activity {
 	
 	public void updateTorchBroadcast(int value) {
 		TorchConfig.setTorch(getApplicationContext(), value);
-		Intent broadcastIntent = new Intent(Global.FLASH_VALUE_UPDATED_BROADCAST_NAME);
-		broadcastIntent.putExtra(Global.KEY_NEW_VALUE, value);
+		Intent broadcastIntent = new Intent(Z.FLASH_VALUE_UPDATED_BROADCAST_NAME);
+		broadcastIntent.putExtra(Z.KEY_NEW_VALUE, value);
 		sendBroadcast(broadcastIntent);
 	}
 
@@ -314,8 +314,8 @@ public class MainActivity extends Activity {
 					mAbsMaxVBrightness = seekBar.getProgress();
 					if(mAbsMaxVBrightness == 0) { mAbsMaxVBrightness = 1; }
 					TorchConfig.setBrightnessLimitValue(getApplicationContext(),mAbsMaxVBrightness);
-					if(mAbsMaxVBrightness < Global.getDefaultBrightness(getApplicationContext())){
-						Global.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
+					if(mAbsMaxVBrightness < Z.getDefaultBrightness(getApplicationContext())){
+						Z.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
 					}
 					updateTorchBroadcast(0);
 					finish();

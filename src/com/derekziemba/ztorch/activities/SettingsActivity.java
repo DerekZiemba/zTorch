@@ -16,7 +16,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.derekziemba.torchplayer.TorchConfig;
-import com.derekziemba.ztorch.Global;
+import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
 
 public class SettingsActivity extends Activity {
@@ -122,13 +122,13 @@ public class SettingsActivity extends Activity {
 				" /" + String.valueOf(TorchConfig.getAbsMaxBrightness())) );
 		
 		valueDefaultLevelTXTVIEW.setText(getText(R.string.value_default_level).toString().replace("%s", 
-				String.valueOf(Global.getDefaultBrightness(getApplicationContext()) )));
+				String.valueOf(Z.getDefaultBrightness(getApplicationContext()) )));
 		
 		valueQuickIncrementTXTVIEW.setText(getText(R.string.value_quick_increments).toString().replace("%s", 
 				String.valueOf(TorchConfig.getIncrementSteps(getApplicationContext()) )));
 		
 		valueTapTimeTXTVIEW.setText(getText(R.string.value_tap_time).toString().replace("%s",
-				String.valueOf(Global.getTapTime(this))));
+				String.valueOf(Z.getTapTime(this))));
 	}
 	
 	
@@ -179,66 +179,66 @@ public class SettingsActivity extends Activity {
 	}
 	
 	private void doubleTapListener() {
-		doubleTapToggle.setChecked(Global.getDoubleTap(this));
+		doubleTapToggle.setChecked(Z.getDoubleTap(this));
 		doubleTapToggle.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();
 				
-				if(Global.getDoubleTap(context)) {
-					Global.setDoubleTap(context,false);
+				if(Z.getDoubleTap(context)) {
+					Z.setDoubleTap(context,false);
 				}
 				else {
-					if(Global.getRapidTap(context)){
-						Global.setRapidTap(context,false);
+					if(Z.getRapidTap(context)){
+						Z.setRapidTap(context,false);
 						rapidTapToggle.setChecked(false);
 					}
-					Global.setDoubleTap(context,true);
+					Z.setDoubleTap(context,true);
 				}
 			}
 		});
 	}
 	
 	private void rapidTapListener() {
-		rapidTapToggle.setChecked(Global.getRapidTap(this));
+		rapidTapToggle.setChecked(Z.getRapidTap(this));
 		rapidTapToggle.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();
-				if(Global.getRapidTap(context)) {
-					Global.setRapidTap(context,false);
+				if(Z.getRapidTap(context)) {
+					Z.setRapidTap(context,false);
 				}
 				else {
-					if(Global.getDoubleTap(context)){
-						Global.setDoubleTap(context,false);
+					if(Z.getDoubleTap(context)){
+						Z.setDoubleTap(context,false);
 						doubleTapToggle.setChecked(false);
 					}
-					Global.setRapidTap(context,true);
+					Z.setRapidTap(context,true);
 				}
 			}
 		});
 	}
 	
 	private void persistNotifListener() {
-		persistNotifToggle.setChecked(Global.getPersistNotif(this));
+		persistNotifToggle.setChecked(Z.getPersistNotif(this));
 		persistNotifToggle.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();			
-				if(Global.getPersistNotif(context)) {	Global.setPersistNotif(context,false);	}
-				else {	Global.setPersistNotif(context,true);	}
+				if(Z.getPersistNotif(context)) {	Z.setPersistNotif(context,false);	}
+				else {	Z.setPersistNotif(context,true);	}
 			}
 		});
 	}
 	
 	private void minNotifListener() {
-		minNotifToggle .setChecked(Global.getMinimizeNotif(this));
+		minNotifToggle .setChecked(Z.getMinimizeNotif(this));
 		minNotifToggle .setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();
-				if(Global.getMinimizeNotif(context)) {	Global.setMinimizeNotif(context,false);	}
-				else {	Global.setMinimizeNotif(context,true);	}
+				if(Z.getMinimizeNotif(context)) {	Z.setMinimizeNotif(context,false);	}
+				else {	Z.setMinimizeNotif(context,true);	}
 			}
 		});
 	}	
@@ -296,8 +296,8 @@ public class SettingsActivity extends Activity {
 				int mAbsMaxVBrightness = sus.progress();
 				if(mAbsMaxVBrightness == 0) { mAbsMaxVBrightness = 1; }
 				TorchConfig.setBrightnessLimitValue(getApplicationContext(),mAbsMaxVBrightness);
-				if(mAbsMaxVBrightness < Global.getDefaultBrightness(getApplicationContext())){
-					Global.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
+				if(mAbsMaxVBrightness < Z.getDefaultBrightness(getApplicationContext())){
+					Z.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
 				}
 				refreshTextViews();
 			}
@@ -306,14 +306,14 @@ public class SettingsActivity extends Activity {
 	
 	private void setNewDefaultLevel() {
 		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				Global.getDefaultBrightness(getApplicationContext()), TorchConfig.getAbsMaxBrightness());
+				Z.getDefaultBrightness(getApplicationContext()), TorchConfig.getAbsMaxBrightness());
 		
 		sus.create(R.string.default_level, R.string.set_default_level, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				int mAbsMaxVBrightness = sus.progress();
 				if(mAbsMaxVBrightness == 0) { mAbsMaxVBrightness = 1; }
-				Global.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
+				Z.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
 				refreshTextViews();
 			}
 		});
@@ -328,7 +328,7 @@ public class SettingsActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				int x = sus.progress();
 				if(x == 0) { x = 1; }
-				int max = Global.getDefaultBrightness(getApplicationContext());
+				int max = Z.getDefaultBrightness(getApplicationContext());
 				if(x > max){
 					Toast.makeText(getApplicationContext(), R.string.quick_increment_to_high, Toast.LENGTH_SHORT).show();
 					x = max;
@@ -342,14 +342,14 @@ public class SettingsActivity extends Activity {
 	
 	private void setNewTapTime() {
 		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				Global.getTapTime(getApplicationContext()), Global.max_tap_time);
+				Z.getTapTime(getApplicationContext()), Z.max_tap_time);
 		
 		sus.create(R.string.tap_time, R.string.set_tap_time, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				int x = sus.progress();
 				if(x == 0) { x = 100; }		
-				Global.setTapTime(getApplicationContext(),x);
+				Z.setTapTime(getApplicationContext(),x);
 				refreshTextViews();
 			}
 		});
