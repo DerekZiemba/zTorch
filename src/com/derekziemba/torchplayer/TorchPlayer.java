@@ -1,6 +1,8 @@
 package com.derekziemba.torchplayer;
 
+import java.lang.reflect.Field;
 
+import com.derekziemba.root.Shell;
 import com.derekziemba.torchplayer.TorchControlThread.Options;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.Z;
@@ -41,9 +43,9 @@ public class TorchPlayer extends Activity {
 		playInstructions.setText(getText(R.string.editable).toString().replace("%s",playins));
 
 		repeatCheckBox = (CheckBox) findViewById(R.id.repeatCheckBox);
-		
+
 		tct = new TorchControlThread();
-		
+
 		if(repeatCheckBox != null) {
 			repeatCheckBox.setChecked(Z.prefs(this).getBoolean(REPEAT_MODE,false));
 			repeatCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +57,6 @@ public class TorchPlayer extends Activity {
 		}
 
 	}		
-	
 	
 	public void onToggleClicked(View v) {
 		//Toast.makeText(getApplicationContext(),"Feature Not Ready, Will Crash App", Toast.LENGTH_SHORT).show();
@@ -74,6 +75,7 @@ public class TorchPlayer extends Activity {
 			torchThread.interrupt();
 		}
 	}	
+	
 	
 
 	@Override

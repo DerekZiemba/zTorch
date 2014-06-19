@@ -10,12 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-
+import com.derekziemba.root.Shell;
 import com.derekziemba.ztorch.Z;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.Command;
-import com.stericson.RootTools.execution.CommandCapture;
-import com.stericson.RootTools.execution.Shell;
 
 public class TorchConfig 
 {
@@ -192,17 +188,8 @@ public class TorchConfig
 	
 	private static boolean setTorchROOT(Shell shell, int value) 
 	{
-		String commandString = 
-				"echo " + String.valueOf(value) + " > "+ getSysFsFile();
-		
-		CommandCapture command = new CommandCapture(0, commandString);
-		
 		try {
-			Command c = shell.add(command);
-			while (!c.isFinished()) 
-			{
-				Thread.sleep(1);
-			}
+			shell.exec("echo " + String.valueOf(value) + " > "+ getSysFsFile());
 			return true;
 		} catch (Exception e) 
 		{
@@ -214,7 +201,7 @@ public class TorchConfig
 	public static boolean setTorchROOT(int value) 
 	{
 		try {
-			setTorchROOT(RootTools.startRootShell(), value);
+			setTorchROOT(Shell.getShell(), value);
 			return true;
 		} catch (Exception e) 
 		{
@@ -238,6 +225,7 @@ public class TorchConfig
 				.putInt(SETTINGS_VALID_SYSFILE, 1)
 				.commit();
 			
+			/*
 			if(RootTools.isRootAvailable() & RootTools.isAccessGiven()) 
 			{
 				settings.edit()
@@ -250,6 +238,7 @@ public class TorchConfig
 					.putInt(SETTINGS_ROOT_ACCESS, 0)
 					.commit();
 			}
+			*/
 		} 
 		else {
 			settings.edit()

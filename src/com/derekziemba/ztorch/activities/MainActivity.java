@@ -26,8 +26,6 @@ import com.derekziemba.torchplayer.TorchConfig;
 import com.derekziemba.torchplayer.TorchPlayer;
 import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
-import com.derekziemba.ztorch.Tools;
-import com.stericson.RootTools.RootTools;
 
 public class MainActivity extends Activity {
 	private SeekBar mBrightnessSlider = null;	
@@ -80,8 +78,8 @@ public class MainActivity extends Activity {
 			updateTorchBroadcast(progress);
 		} 
 		else {
-			if (!RootTools.isRootAvailable()) {	Tools.createErrorDialog(this, Tools.Errors.NO_ROOT);	} 
-			else if (!RootTools.isAccessGiven()) { Tools.createErrorDialog(this, Tools.Errors.NO_ROOT_ACCESS);	} 
+			//if (!RootTools.isRootAvailable()) {	Tools.createErrorDialog(this, Tools.Errors.NO_ROOT);	} 
+			//if (!RootTools.isAccessGiven()) { Tools.createErrorDialog(this, Tools.Errors.NO_ROOT_ACCESS);	} 
 		}
 	}
 	
