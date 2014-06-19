@@ -12,6 +12,7 @@ public class BootReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if ("android.intent.action.ACTION_SHUTDOWN".equals(intent.getAction())) {	
+			
 			TorchConfig.setTorch(context,0);				
 		} 
 		

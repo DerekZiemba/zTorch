@@ -39,10 +39,10 @@ public final class R {
         public static final int widgetpreview=0x7f020005;
     }
     public static final class id {
-        public static final int EditText01=0x7f090003;
-        public static final int TextView02=0x7f090002;
-        public static final int TextView04=0x7f090006;
-        public static final int TorchPlayerInstructions=0x7f090004;
+        public static final int EditText01=0x7f090004;
+        public static final int TextView02=0x7f090003;
+        public static final int TextView04=0x7f090001;
+        public static final int TorchPlayerInstructions=0x7f090002;
         public static final int TorchPlayerPlay=0x7f090027;
         public static final int action_about=0x7f090030;
         public static final int action_settings=0x7f09002e;
@@ -77,7 +77,7 @@ public final class R {
         public static final int setTapTime_BUTTON=0x7f09001c;
         public static final int set_maximum=0x7f09002f;
         public static final int textView1=0x7f090000;
-        public static final int textView2=0x7f090001;
+        public static final int textView2=0x7f090005;
         public static final int textViewBrightnessValue=0x7f090013;
         public static final int textViewCurrentLimit=0x7f090010;
         public static final int textViewCurrentLimitSlider=0x7f090011;
@@ -87,7 +87,7 @@ public final class R {
         public static final int valueDefaultLevel_TXTVIEW=0x7f090026;
         public static final int valueMaxLevel_TXTVIEW=0x7f090024;
         public static final int valueQuickIncrements_TXTVIEW=0x7f090019;
-        public static final int valueTapTime_TXTVIEW=0x7f090005;
+        public static final int valueTapTime_TXTVIEW=0x7f090006;
         public static final int widgetLevelButton=0x7f09000d;
     }
     public static final class layout {

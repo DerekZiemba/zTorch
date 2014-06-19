@@ -16,7 +16,12 @@ import android.widget.ToggleButton;
 
 public class TorchPlayer extends Activity {
 	
-	public final String DEFAULT_INSTRUCTION = "1/1s, 12/1s, 0/1s, 11/.5s, 0/.5s, 9/.5s, 0/300, 12/300, 0/250, 10/250, 0/200, 6/150, 0/150, 4/100, 0/100, 9/100, 0/100, 9/100, 0/100";
+	public final String DEFAULT_INSTRUCTION = "1/350, 2/70, 3/70, 4/70, 5/70, 6/85, 7/80, 8/90, 9/90, 10/90," +
+			" 11/100, 12/100, 13/100,14/100, 15/200,(0/200&15/200)*4, (15/150&0/120)*3, (14/120&0/100)*3," +
+			" (13/100&0/90)*3, (12/90&0/75)*3, (11/75&0/50)*3, (10/50&0/35)*2, (9/35&0/25)*2, (8/35&0/25)*2," +
+			" (7/30&0/25)*3, (6/30&0/25)*3, (5/30&0/25)*4, (4/30&0/25)*4, (3/30&0/25)*4, (2/30&0/25) *4," +
+			" (1/30&0/25) *3, (1/25&0/25) *3, (1/20&0/20) *8 , (1/15&0/15) *6 , (1/10&0/20) *4 ," +
+			" (15/20&0/25)*10, (15/40&0/20)*8";
 	//public final String DEFAULT_INSTRUCTION = "1/2000";
 	public static final String PLAY_INSTRUCTION = "play_instruction";
 	public static final String REPEAT_MODE = "repeat_mode";
@@ -61,12 +66,11 @@ public class TorchPlayer extends Activity {
 		
 		if(on){
 			tct.config(newplayins, repeatCheckBox.isChecked() ? Options.REPEAT : Options.NOOP);
-			tct.requestResume();
 			torchThread = new Thread(tct);
+			torchThread.setPriority(Thread.MAX_PRIORITY);
 			torchThread.start();
 		}
 		else {
-			tct.requestStop();
 			torchThread.interrupt();
 		}
 	}	

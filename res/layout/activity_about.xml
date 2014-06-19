@@ -15,21 +15,21 @@
         android:text="@string/about_text" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/TextView04"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="102dp"
-        android:text="@string/about_bitcoin" />
+        android:layout_alignLeft="@+id/TorchPlayerInstructions"
+        android:layout_below="@+id/TorchPlayerInstructions"
+        android:layout_marginTop="14dp"
+        android:text="@string/about_bugs" />
 
     <TextView
         android:id="@+id/TextView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="14dp"
         android:text="@string/about_donation" />
 
     <EditText
@@ -45,33 +45,29 @@
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/TorchPlayerInstructions"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/valueTapTime_TXTVIEW"
-        android:layout_alignRight="@+id/EditText01"
-        android:layout_below="@+id/valueTapTime_TXTVIEW"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:text="@string/about_dogecoin_address" />
- 
+        android:layout_alignLeft="@+id/TextView02"
+        android:layout_below="@+id/TextView02"
+        android:text="@string/about_bitcoin" />
+
     <TextView
         android:id="@+id/valueTapTime_TXTVIEW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/EditText01"
         android:layout_below="@+id/EditText01"
-        android:layout_marginTop="23dp"
         android:text="@string/about_dogecoin" />
 
-    <TextView
-        android:id="@+id/TextView04"
+    <EditText
+        android:id="@+id/TorchPlayerInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TorchPlayerInstructions"
-        android:layout_below="@+id/TorchPlayerInstructions"
-        android:layout_marginTop="14dp"
-        android:text="@string/about_bugs" />
+        android:layout_alignLeft="@+id/valueTapTime_TXTVIEW"
+        android:layout_below="@+id/valueTapTime_TXTVIEW"
+        android:ems="10"
+        android:text="@string/about_dogecoin_address" />
 
 </RelativeLayout>

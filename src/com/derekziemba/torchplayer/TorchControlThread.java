@@ -3,11 +3,14 @@ package com.derekziemba.torchplayer;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.exceptions.RootDeniedException;
 import com.stericson.RootTools.execution.CommandCapture;
 import com.stericson.RootTools.execution.Shell;
 
+ 
 public class TorchControlThread implements Runnable {
 	
 	public static enum Options{
@@ -23,28 +26,24 @@ public class TorchControlThread implements Runnable {
 	private String flashfile;
 	private Options option;
 	
-	Boolean stop = false;
+
 
 	public void config(String command, Options option) {
 		this.behaviorScheme = new BrightnessBehavior(command);
 		this.option = option;
 	}
 	
-	public void requestStop() {
-	    this.stop = true;
-	}
-	public void requestResume() {
-	    this.stop = false;
-	}
-	
 	@Override
 	public void run() {		
 		shell = getShell();
 		flashfile = TorchConfig.getSysFsFile();
-	
+		BrightnessTime[] steps = behaviorScheme.getSteps().toArray(new BrightnessTime[0]);	
+		Boolean stop = false;
 		while(!stop && !Thread.interrupted()){
-			for( BrightnessTime bt : behaviorScheme.getSteps()) {
+			for( BrightnessTime bt : steps) {
+				
 				execute(shell, flashfile, bt.getLevel());
+				
 				try {
 					Thread.sleep(bt.getTime());
 				} catch (InterruptedException e) {
@@ -52,14 +51,14 @@ public class TorchControlThread implements Runnable {
 					return;
 				}
 			}
-			stop = (Options.REPEAT == option) ?  false : true;
+			stop = !(Options.REPEAT == option);
 		}
 		execute(shell,flashfile,0);
 	}
 
 	private void execute(Shell shell, String file, int level) {
 		try {	
-			String commandString = 	"echo " + String.valueOf(level) + " > "+ file;	
+			String commandString = 	"echo " + level + " > "+ file;	
 			shell.add(new CommandCapture(0, commandString));
 		} catch (IOException e) {	
 			e.printStackTrace();	

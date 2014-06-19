@@ -8,7 +8,7 @@
     <string name="about_bitcoin_address">159MyZaUyPHy2UDBSBAzkMBHBYEFeMQXQz</string>
     <string name="about_dogecoin">DogeCoin Address:</string>
     <string name="about_dogecoin_address">DQpqcC1gtzu6FniDKe3KyUm8ZQyT5SgGHB</string>
-    <string name="about_bugs">Known Issue: \n None, contact me if you find one.</string>
+    <string name="about_bugs">zTorch relies on RootTools by Stephen Stericson. Special Thanks to him. </string>
     <string name="action_set_widget_brightness">Set widget default brightness to current brightness</string>
     <string name="action_toggle_button">Torch Toggle</string>
     <string name="action_settings">Settings</string>

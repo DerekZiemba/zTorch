@@ -6,27 +6,52 @@ public class InputParsers {
 
 	static boolean stepExtractor(List<BrightnessTime> result, String behavior) {
 		//ex:  1/20m , 4/10m, 9/3.5m, 12/2m, 16/30s
-		String scheme = behavior.replaceAll("[^0-9/sm,.()*]+","");
-		
+		String scheme = behavior.replaceAll("[^0-9/sm,.*&]+","");
+				
 		String[] steps = scheme.split(",");
 		boolean foundError = false;
 		for(int i=0; i < steps.length; i++){
-			BrightnessTime temp = new BrightnessTime(0,0);
-			
-			if(steps[i].contains("[()]+")){
-				String amount = steps[i].substring(steps[i].indexOf(")*"));
+			String temp = steps[i];
+			if(temp.contains("&")){
+				String multiplier = temp.substring(temp.indexOf("*")+1, temp.length());
+				int multi = Integer.valueOf(multiplier);			
+				temp = temp.substring(0, temp.indexOf("*"));			
+				String[] terms = temp.split("&");
+				for(int j=0; j<multi; j++) {
+					for(int k=0; k<terms.length; k++) {
+						BrightnessTime bt = new BrightnessTime(0,0);
+						if( InputParsers.stepParser(bt, terms[k]) ) {
+							result.add(bt);
+						}
+						else foundError = true;
+					}
+				}
 			}
-			
-			if( InputParsers.stepParser(temp, steps[i]) ) {
-				result.add(temp);
+			else {
+				int loop = 1;
+				if(steps[i].contains("*")){
+					String amount = steps[i].substring(steps[i].indexOf("*")+1);
+					steps[i] = steps[i].replace(amount,"");
+					loop = Integer.valueOf(amount);
+				}
+				for(int j=0; j<loop; j++) {
+					BrightnessTime bt = new BrightnessTime(0,0);
+					if( InputParsers.stepParser(bt, steps[i]) ) {
+						result.add(bt);
+					}
+					else foundError = true;
+				}
 			}
-			else foundError = true;
-		}		
+		}
 		return foundError;
 	}
 
-	static boolean stepParser(BrightnessTime result, String step) {
+	static boolean stepParser(BrightnessTime result, String input) {
+		String step = input.replaceAll("[^0-9sm./]+","");
 		String[] lt = step.split("/");
+		if(lt.length >2) {
+			return false;
+		}
 		int level = Integer.valueOf(lt[0].replaceAll("[^0-9]+",""));
 		int millis = InputParsers.toMillis(lt[1]);
 		if(level >= 0 & level <= TorchConfig.AbsoluteMaxBrightness){
@@ -76,5 +101,67 @@ public class InputParsers {
 		return  (val==(int)val ? ""+(int)val : 
 			""+Float.valueOf(String.format("%."+maxDecimalPlaces+"f", val)) ); 
 	}
-
+    
 }
+
+/*
+for(int i=0; i < steps.length; i++){
+	BrightnessTime temp = new BrightnessTime(0,0);
+	int loop = 1;
+	if(steps[i].contains("*")){
+		String amount = steps[i].substring(steps[i].indexOf("*")+1);
+		steps[i] = steps[i].replace(amount,"");
+		loop = Integer.valueOf(amount);
+	}
+	for(int j=0; j<loop; j++) {
+		if( InputParsers.stepParser(temp, steps[i]) ) {
+			result.add(temp);
+		}
+		else foundError = true;
+	}
+}		
+*/
+
+/*
+
+public static String[] opsExtractor(final String input) {
+	String str = input;
+	final String open = "(";
+	final String close = ")*";
+	List<String> result = new ArrayList<String>();
+	int count = 0;
+	
+	while(str.contains(open) && count <1000){		
+        final int start = str.indexOf(open);
+        if (start != -1) {
+        	
+            final int end = str.indexOf(close, start + open.length());
+            
+            if (end != -1) {
+            	
+            	String next = str.substring(end,str.length());
+            	final int opend = next.indexOf(",");
+                String temp = str.substring(start + open.length(), end+opend);
+                int loops = 1;
+                
+                if(temp.contains("*")){
+                	String amount = temp.substring(temp.indexOf("*") + "*".length());
+                	amount = amount.replaceAll("[^0-9]+","");
+                	System.out.println(amount);
+                	temp = temp.substring(0,temp.indexOf(")"));
+                }
+                
+                for(int j=0; j<loops && j<500; j++) {
+                	result.add(temp);
+                }
+                str = str.replace("("+temp+")*"+loops,"");
+                System.out.println(str);
+               // str = str.substring(end+opend,str.length());
+            }
+        }
+        count++;
+	}
+	
+	return result.toArray(new String[0]);
+}
+*/

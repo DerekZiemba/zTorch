@@ -212,7 +212,7 @@ public class TorchConfig
 	}
 
 	
-	private static boolean setTorchROOT(int value) 
+	public static boolean setTorchROOT(int value) 
 	{
 		try {
 			setTorchROOT(RootTools.getShell(true), value);
