@@ -121,7 +121,7 @@ public final class RootTools {
     /**
      * This will close either the root shell or the standard shell depending on what you specify.
      *
-     * @param Shell a <code>boolean</code> to specify whether to close the root shell or the standard shell.
+     * @param root a <code>boolean</code> to specify whether to close the root shell or the standard shell.
      * @throws IOException
      */
     public static void closeRootShell() throws IOException {
