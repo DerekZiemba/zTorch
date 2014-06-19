@@ -23,19 +23,13 @@
 package com.stericson.RootTools.execution;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
 import java.io.IOException;
 
-import com.stericson.RootTools.RootTools;
 
 public abstract class Command {
 
     ExecutionMonitor executionMonitor = null;
-    Handler mHandler = null;
     boolean executing = false;
 
     String[] command = {};
@@ -43,10 +37,9 @@ public abstract class Command {
     Context context = null;
     boolean finished = false;
     boolean terminated = false;
-    boolean handlerEnabled = true;
     int exitCode = -1;
     int id = 0;
-    int timeout = RootTools.default_Command_Timeout;
+    int command_timeout = 5000;
 
     public abstract void commandOutput(int id, String line);
     public abstract void commandTerminated(int id, String reason);
@@ -60,23 +53,8 @@ public abstract class Command {
     public Command(int id, String... command) {
         this.command = command;
         this.id = id;
-
-        createHandler(RootTools.handlerEnabled);
     }
 
-    /**
-     * Constructor for executing a normal shell command
-     * @param id the id of the command being executed
-     * @param handlerEnabled when true the handler will be used to call the
-     *                       callback methods if possible.
-     * @param command the command, or commands, to be executed.
-     */
-    public Command(int id, boolean handlerEnabled, String... command) {
-        this.command = command;
-        this.id = id;
-
-        createHandler(handlerEnabled);
-    }
 
     /**
      * Constructor for executing a normal shell command
@@ -88,43 +66,9 @@ public abstract class Command {
     public Command(int id, int timeout, String... command) {
         this.command = command;
         this.id = id;
-        this.timeout = timeout;
-
-        createHandler(RootTools.handlerEnabled);
+        this.command_timeout = timeout;
     }
 
-    /**
-     * Constructor for executing Java commands rather than binaries
-     * @param javaCommand when True, it is a java command.
-     * @param context     needed to execute java command.
-     */
-    public Command(int id, boolean javaCommand, Context context, String... command) {
-        this(id, command);
-        this.javaCommand = javaCommand;
-        this.context = context;
-    }
-
-    /**
-     * Constructor for executing Java commands rather than binaries
-     * @param javaCommand when True, it is a java command.
-     * @param context     needed to execute java command.
-     */
-    public Command(int id, boolean handlerEnabled, boolean javaCommand, Context context, String... command) {
-        this(id, handlerEnabled, command);
-        this.javaCommand = javaCommand;
-        this.context = context;
-    }
-
-    /**
-     * Constructor for executing Java commands rather than binaries
-     * @param javaCommand when True, it is a java command.
-     * @param context     needed to execute java command.
-     */
-    public Command(int id, int timeout, boolean javaCommand, Context context, String... command) {
-        this(id, timeout, command);
-        this.javaCommand = javaCommand;
-        this.context = context;
-    }
 
     protected void finishCommand() {
         executing = false;
@@ -135,33 +79,9 @@ public abstract class Command {
     protected void commandFinished() {
         if (!terminated) {
             synchronized (this) {
-                if (mHandler != null && handlerEnabled) {
-                    Message msg = mHandler.obtainMessage();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(CommandHandler.ACTION, CommandHandler.COMMAND_COMPLETED);
-                    msg.setData(bundle);
-                    mHandler.sendMessage(msg);
-                }
-                else {
-                    commandCompleted(id, exitCode);
-                }
-
-                RootTools.log("Command " + id + " finished.");
+                commandCompleted(id, exitCode);
                 finishCommand();
             }
-        }
-    }
-
-    private void createHandler(boolean handlerEnabled) {
-
-        this.handlerEnabled = handlerEnabled;
-
-        if (Looper.myLooper() != null && handlerEnabled) {
-            RootTools.log("CommandHandler created");
-            mHandler = new CommandHandler();
-        }
-        else {
-            RootTools.log("CommandHandler not created");
         }
     }
 
@@ -196,9 +116,6 @@ public abstract class Command {
         return executing;
     }
 
-    public boolean isHandlerEnabled() {
-        return handlerEnabled;
-    }
 
     public boolean isFinished() {
         return finished;
@@ -224,7 +141,6 @@ public abstract class Command {
     public void terminate(String reason) {
         try {
             Shell.closeRootShell();
-            RootTools.log("Terminating all shells.");
             terminated(reason);
         } catch (IOException e) {}
     }
@@ -232,20 +148,10 @@ public abstract class Command {
     protected void terminated(String reason) {
         synchronized (Command.this) {
 
+           commandTerminated(id, reason);
+        
 
-            if (mHandler != null && handlerEnabled) {
-                Message msg = mHandler.obtainMessage();
-                Bundle bundle = new Bundle();
-                bundle.putInt(CommandHandler.ACTION, CommandHandler.COMMAND_TERMINATED);
-                bundle.putString(CommandHandler.TEXT, reason);
-                msg.setData(bundle);
-                mHandler.sendMessage(msg);
-            }
-            else {
-                commandTerminated(id, reason);
-            }
-
-            RootTools.log("Command " + id + " did not finish because it was terminated. Termination reason: " + reason);
+          //  RootTools.log("Command " + id + " did not finish because it was terminated. Termination reason: " + reason);
             setExitCode(-1);
             terminated = true;
             finishCommand();
@@ -253,17 +159,8 @@ public abstract class Command {
     }
 
     protected void output(int id, String line) {
-        if (mHandler != null && handlerEnabled) {
-            Message msg = mHandler.obtainMessage();
-            Bundle bundle = new Bundle();
-            bundle.putInt(CommandHandler.ACTION, CommandHandler.COMMAND_OUTPUT);
-            bundle.putString(CommandHandler.TEXT, line);
-            msg.setData(bundle);
-            mHandler.sendMessage(msg);
-        }
-        else {
-            commandOutput(id, line);
-        }
+        commandOutput(id, line);
+        
     }
 
     private class ExecutionMonitor extends Thread {
@@ -272,41 +169,16 @@ public abstract class Command {
 
                 synchronized (Command.this) {
                     try {
-                        Command.this.wait(timeout);
+                        Command.this.wait(command_timeout);
                     } catch (InterruptedException e) {}
                 }
 
                 if (!finished) {
-                    RootTools.log("Timeout Exception has occurred.");
                     terminate("Timeout Exception");
                 }
             }
         }
     }
 
-    private class CommandHandler extends Handler {
-        static final public String ACTION = "action";
-        static final public String TEXT = "text";
-
-        static final public int COMMAND_OUTPUT = 0x01;
-        static final public int COMMAND_COMPLETED = 0x02;
-        static final public int COMMAND_TERMINATED = 0x03;
-
-        public void handleMessage(Message msg) {
-            int action = msg.getData().getInt(ACTION);
-            String text = msg.getData().getString(TEXT);
-
-            switch (action) {
-                case COMMAND_OUTPUT:
-                    commandOutput(id, text);
-                    break;
-                case COMMAND_COMPLETED:
-                    commandCompleted(id, exitCode);
-                    break;
-                case COMMAND_TERMINATED:
-                    commandTerminated(id, text);
-                    break;
-            }
-        }
-    }
+   
 }

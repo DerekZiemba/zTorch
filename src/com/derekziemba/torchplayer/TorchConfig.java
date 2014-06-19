@@ -214,7 +214,7 @@ public class TorchConfig
 	public static boolean setTorchROOT(int value) 
 	{
 		try {
-			setTorchROOT(RootTools.getShell(true), value);
+			setTorchROOT(RootTools.startRootShell(), value);
 			return true;
 		} catch (Exception e) 
 		{

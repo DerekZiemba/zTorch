@@ -58,7 +58,7 @@ public class Runner extends Thread {
         }
         if (privateFilesPath != null) {
             try {
-                CommandCapture command = new CommandCapture(0, false, privateFilesPath + "/" + binaryName + " " + parameter);
+                CommandCapture command = new CommandCapture(0, privateFilesPath + "/" + binaryName + " " + parameter);
                 Shell.startRootShell().add(command);
                 commandWait(command);
 

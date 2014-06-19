@@ -66,10 +66,10 @@ public final class RootToolsInternalMethods {
     public boolean exists(final String file) {
         final List<String> result = new ArrayList<String>();
 
-        CommandCapture command = new CommandCapture(0, false, "ls " + file) {
+        CommandCapture command = new CommandCapture(0,  "ls " + file) {
             @Override
             public void output(int arg0, String arg1) {
-                RootTools.log(arg1);
+           //     RootTools.log(arg1);
                 result.add(arg1);
             }
         };
@@ -127,50 +127,50 @@ public final class RootToolsInternalMethods {
         String[] places = {"/sbin/", "/system/bin/", "/system/xbin/", "/data/local/xbin/",
                 "/data/local/bin/", "/system/sd/xbin/", "/system/bin/failsafe/", "/data/local/"};
 
-        RootTools.log("Checking for " + binaryName);
+       // RootTools.log("Checking for " + binaryName);
 
         //Try to use stat first
         try {
             for(final String path : places) {
-                CommandCapture cc = new CommandCapture(0, false, "stat " + path + binaryName) {
+                CommandCapture cc = new CommandCapture(0,  "stat " + path + binaryName) {
                     @Override
                     public void commandOutput(int id, String line) {
                         if(line.contains("File: ") && line.contains(binaryName)) {
                             list.add(path);
 
-                            RootTools.log(binaryName + " was found here: " + path);
+                          //  RootTools.log(binaryName + " was found here: " + path);
                         }
 
-                        RootTools.log(line);
+                     //   RootTools.log(line);
                     }
-                };
+                }; 
 
-                RootTools.getShell(false).add(cc);
-                commandWait(RootTools.getShell(false), cc);
+                RootTools.startRootShell().add(cc);
+                commandWait(RootTools.startRootShell(), cc);
 
             }
 
             found = !list.isEmpty();
         } catch (Exception e) {
-            RootTools.log(binaryName + " was not found, more information MAY be available with Debugging on.");
+         //   RootTools.log(binaryName + " was not found, more information MAY be available with Debugging on.");
         }
 
         if (!found) {
-            RootTools.log("Trying second method");
+        //    RootTools.log("Trying second method");
 
             for (String where : places) {
                 if (RootTools.exists(where + binaryName)) {
-                    RootTools.log(binaryName + " was found here: " + where);
+                  //  RootTools.log(binaryName + " was found here: " + where);
                     list.add(where);
                     found = true;
                 } else {
-                    RootTools.log(binaryName + " was NOT found here: " + where);
+                 //   RootTools.log(binaryName + " was NOT found here: " + where);
                 }
             }
         }
 
         if(!found) {
-            RootTools.log("Trying third method");
+         //   RootTools.log("Trying third method");
 
             try {
                 List<String> paths = RootTools.getPath();
@@ -178,16 +178,16 @@ public final class RootToolsInternalMethods {
                 if (paths != null) {
                     for (String path : paths) {
                         if (RootTools.exists(path + "/" + binaryName)) {
-                            RootTools.log(binaryName + " was found here: " + path);
+                     //       RootTools.log(binaryName + " was found here: " + path);
                             list.add(path);
                             found = true;
                         } else {
-                            RootTools.log(binaryName + " was NOT found here: " + path);
+                     //       RootTools.log(binaryName + " was NOT found here: " + path);
                         }
                     }
                 }
             } catch (Exception e) {
-                RootTools.log(binaryName + " was not found, more information MAY be available with Debugging on.");
+            //    RootTools.log(binaryName + " was not found, more information MAY be available with Debugging on.");
             }
         }
 
@@ -205,25 +205,25 @@ public final class RootToolsInternalMethods {
      */
     public boolean isAccessGiven() {
         try {
-            RootTools.log("Checking for Root access");
+          //  RootTools.log("Checking for Root access");
             RootTools.accessGiven = false;
 
-            CommandCapture command = new CommandCapture(RootTools.IAG, false, "id") {
+            CommandCapture command = new CommandCapture(RootTools.IAG, "id") {
                 @Override
                 public void output(int id, String line) {
                     if (id == RootTools.IAG) {
                         Set<String> ID = new HashSet<String>(Arrays.asList(line.split(" ")));
                         for (String userid : ID) {
-                            RootTools.log(userid);
+                       //     RootTools.log(userid);
 
                             if (userid.toLowerCase().contains("uid=0")) {
                                 RootTools.accessGiven = true;
-                                RootTools.log("Access Given");
+                          //      RootTools.log("Access Given");
                                 break;
                             }
                         }
                         if (!RootTools.accessGiven) {
-                            RootTools.log("Access Denied?");
+                         //   RootTools.log("Access Denied?");
                         }
                     }
                 }
@@ -240,42 +240,12 @@ public final class RootToolsInternalMethods {
     }
 
 
-
-
-    /**
-     * This will launch the Android market looking for SuperUser
-     *
-     * @param activity pass in your Activity
-     */
-    public void offerSuperUser(Activity activity) {
-        RootTools.log("Launching Market for SuperUser");
-        Intent i = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("market://details?id=com.noshufou.android.su"));
-        activity.startActivity(i);
-    }
-
-    /**
-     * This will launch the Android market looking for SuperUser, but will return the intent fired
-     * and starts the activity with startActivityForResult
-     *
-     * @param activity    pass in your Activity
-     * @param requestCode pass in the request code
-     * @return intent fired
-     */
-    public Intent offerSuperUser(Activity activity, int requestCode) {
-        RootTools.log("Launching Market for SuperUser");
-        Intent i = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("market://details?id=com.noshufou.android.su"));
-        activity.startActivityForResult(i, requestCode);
-        return i;
-    }
-
     //TODO:Command Wait has delay
     private void commandWait(Shell shell, Command cmd) throws Exception {
 
         while (!cmd.isFinished()) {
 
-            RootTools.log(RootTools.TAG, shell.getCommandQueuePositionString(cmd));
+          //  RootTools.log(RootTools.TAG, shell.getCommandQueuePositionString(cmd));
 
             synchronized (cmd) {
                 try {

@@ -28,10 +28,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
+
 
 import com.stericson.RootTools.execution.Command;
 import com.stericson.RootTools.execution.Shell;
@@ -122,7 +121,7 @@ public final class RootTools {
     /**
      * This will close either the root shell or the standard shell depending on what you specify.
      *
-     * @param root a <code>boolean</code> to specify whether to close the root shell or the standard shell.
+     * @param Shell a <code>boolean</code> to specify whether to close the root shell or the standard shell.
      * @throws IOException
      */
     public static void closeRootShell() throws IOException {
@@ -173,36 +172,11 @@ public final class RootTools {
      * @param    timeout an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      * @throws IOException
      */
-    public static Shell getShell(boolean root, int timeout, int retry) throws IOException, TimeoutException, RootDeniedException {
-          return Shell.startRootShell(timeout);
+    public static Shell startRootShell() throws IOException, TimeoutException, RootDeniedException {
+          return Shell.startRootShell();
     }
 
-    /**
-     * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
-     * and for closing the shell when you are done using it.
-     *
-     * @throws TimeoutException
-     * @throws RootDeniedException
-     * @param    root a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
-     * @param    timeout an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
-     * @throws IOException
-     */
-    public static Shell getShell(boolean root, int timeout) throws IOException, TimeoutException, RootDeniedException {
-        return getShell(root, timeout, 3);
-    }
 
-    /**
-     * This will open or return, if one is already open, a shell, you are responsible for managing the shell, reading the output
-     * and for closing the shell when you are done using it.
-     *
-     * @throws TimeoutException
-     * @throws RootDeniedException
-     * @param    root a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
-     * @throws IOException
-     */
-    public static Shell getShell(boolean root) throws IOException, TimeoutException, RootDeniedException {
-        return RootTools.getShell(root, 5000);
-    }
 
     /**
      * Warning: bypasses all checks, possible to get invalid shell or null
@@ -227,28 +201,6 @@ public final class RootTools {
      */
     public static boolean isRootAvailable() {
         return findBinary("su");
-    }
-
-
-    /**
-     * This will launch the Android market looking for SuperUser
-     *
-     * @param activity pass in your Activity
-     */
-    public static void offerSuperUser(Activity activity) {
-        getInternals().offerSuperUser(activity);
-    }
- 
-    /**
-     * This will launch the Android market looking for SuperUser, but will return the intent fired
-     * and starts the activity with startActivityForResult
-     *
-     * @param activity    pass in your Activity
-     * @param requestCode pass in the request code
-     * @return intent fired
-     */
-    public static Intent offerSuperUser(Activity activity, int requestCode) {
-        return getInternals().offerSuperUser(activity, requestCode);
     }
 
     /**
@@ -277,118 +229,6 @@ public final class RootTools {
     public static void runShellCommand(Shell shell, Command command) throws IOException {
         shell.add(command);
     }
-
-    /**
-     * This method allows you to output debug messages only when debugging is on. This will allow
-     * you to add a debug option to your app, which by default can be left off for performance.
-     * However, when you need debugging information, a simple switch can enable it and provide you
-     * with detailed logging.
-     * <p/>
-     * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
-     * yourself.
-     *
-     * @param msg The message to output.
-     */
-    public static void log(String msg) {
-        log(null, msg, 3, null);
-    }
-
-    /**
-     * This method allows you to output debug messages only when debugging is on. This will allow
-     * you to add a debug option to your app, which by default can be left off for performance.
-     * However, when you need debugging information, a simple switch can enable it and provide you
-     * with detailed logging.
-     * <p/>
-     * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
-     * yourself.
-     *
-     * @param TAG Optional parameter to define the tag that the Log will use.
-     * @param msg The message to output.
-     */
-    public static void log(String TAG, String msg) {
-        log(TAG, msg, 3, null);
-    }
-
-    /**
-     * This method allows you to output debug messages only when debugging is on. This will allow
-     * you to add a debug option to your app, which by default can be left off for performance.
-     * However, when you need debugging information, a simple switch can enable it and provide you
-     * with detailed logging.
-     * <p/>
-     * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
-     * yourself.
-     *
-     * @param msg  The message to output.
-     * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
-     * @param e    The exception that was thrown (Needed for errors)
-     */
-    public static void log(String msg, int type, Exception e) {
-        log(null, msg, type, e);
-    }
-
-    /**
-     * This method allows you to check whether logging is enabled.
-     * Yes, it has a goofy name, but that's to keep it as short as possible.
-     * After all writing logging calls should be painless.
-     * This method exists to save Android going through the various Java layers
-     * that are traversed any time a string is created (i.e. what you are logging)
-     *
-     * Example usage:
-     * if(islog) {
-     *     StrinbBuilder sb = new StringBuilder();
-     *     // ...
-     *     // build string
-     *     // ...
-     *     log(sb.toString());
-     * }
-     *
-     *
-     * @return true if logging is enabled
-     */
-    public static boolean islog() {
-        return debugMode;
-    }
-
-    /**
-     * This method allows you to output debug messages only when debugging is on. This will allow
-     * you to add a debug option to your app, which by default can be left off for performance.
-     * However, when you need debugging information, a simple switch can enable it and provide you
-     * with detailed logging.
-     * <p/>
-     * This method handles whether or not to log the information you pass it depending whether or
-     * not RootTools.debugMode is on. So you can use this and not have to worry about handling it
-     * yourself.
-     *
-     * @param TAG  Optional parameter to define the tag that the Log will use.
-     * @param msg  The message to output.
-     * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
-     * @param e    The exception that was thrown (Needed for errors)
-     */
-    public static void log(String TAG, String msg, int type, Exception e) {
-        if (msg != null && !msg.equals("")) {
-            if (debugMode) {
-                if (TAG == null) {
-                    TAG = RootTools.TAG;
-                }
-
-                switch (type) {
-                    case 1:
-                        Log.v(TAG, msg);
-                        break;
-                    case 2:
-                        Log.e(TAG, msg, e);
-                        break;
-                    case 3:
-                        Log.d(TAG, msg);
-                        break;
-                }
-            }
-        }
-    }
-
 
 
 }

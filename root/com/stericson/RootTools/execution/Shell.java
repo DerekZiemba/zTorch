@@ -27,10 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import android.content.Context;
-
 import com.stericson.RootTools.RootDeniedException;
-import com.stericson.RootTools.RootTools;
 
 
 /**
@@ -45,7 +42,7 @@ import com.stericson.RootTools.RootTools;
 public class Shell {
 
     //Statics -- visible to all
-    private static int shellTimeout = 5000;
+    private static int shellTimeout = 10000;
     private static final String token = "F*D^W@#FGF";
     private static Shell rootShell = null;
 
@@ -71,8 +68,6 @@ public class Shell {
 
     //private constructor responsible for opening/constructing the shell
     private Shell(String cmd) throws IOException, TimeoutException, RootDeniedException {
-
-        RootTools.log("Starting shell: " + cmd);
 
         this.proc = new ProcessBuilder(cmd).redirectErrorStream(true).start();
         this.in = new BufferedReader(new InputStreamReader(this.proc.getInputStream(), "UTF-8"));
@@ -150,7 +145,8 @@ public class Shell {
     }
 
 
-    public Command add(Command command) throws IOException {
+    public Command add(Command command) //throws IOException 
+    {
         if (this.close)
             throw new IllegalStateException(
                     "Unable to add commands to a closed shell");
@@ -166,18 +162,9 @@ public class Shell {
         return command;
     }
 
-    public void useCWD(Context context) throws IOException, TimeoutException, RootDeniedException {
-        add(
-                new CommandCapture(
-                        -1,
-                        false,
-                        "cd " + context.getApplicationInfo().dataDir));
-    }
-
     private void cleanCommands() {
         this.isCleaning = true;
         int toClean = Math.abs(this.maxCommands - (this.maxCommands / 4));
-        RootTools.log("Cleaning up: " + toClean);
 
         for (int i = 0; i < toClean; i++) {
             this.commands.remove(0);
@@ -273,7 +260,7 @@ public class Shell {
                          */
                         while (read != write)
                         {
-                            RootTools.log("Waiting for read and write to catch up before cleanup.");
+                       //     RootTools.log("Waiting for read and write to catch up before cleanup.");
                         }
                         /**
                          * Clean up the commands, stay neat.
@@ -291,7 +278,7 @@ public class Shell {
                         isExecuting = true;
                         Command cmd = commands.get(write);
                         cmd.startExecution();
-                        RootTools.log("Executing: " + cmd.getCommand());
+                      //  RootTools.log("Executing: " + cmd.getCommand());
 
                         out.write(cmd.getCommand());
                         String line = "\necho " + token + " " + totalExecuted + " $?\n";
@@ -306,14 +293,14 @@ public class Shell {
                         isExecuting = false;
                         out.write("\nexit 0\n");
                         out.flush();
-                        RootTools.log("Closing shell");
+                      //  RootTools.log("Closing shell");
                         return;
                     }
                 }
             } catch (IOException e) {
-                RootTools.log(e.getMessage(), 2, e);
+              //  RootTools.log(e.getMessage(), 2, e);
             } catch (InterruptedException e) {
-                RootTools.log(e.getMessage(), 2, e);
+             //   RootTools.log(e.getMessage(), 2, e);
             } finally {
                 write = 0;
                 closeQuietly(out);
@@ -414,7 +401,7 @@ public class Shell {
                     }
                 }
 
-                RootTools.log("Read all output");
+            //    RootTools.log("Read all output");
                 try {
                     proc.waitFor();
                     proc.destroy();
@@ -423,7 +410,7 @@ public class Shell {
                 closeQuietly(out);
                 closeQuietly(in);
 
-                RootTools.log("Shell destroyed");
+              //  RootTools.log("Shell destroyed");
 
                 while (read < commands.size()) {
                     if (command == null)
@@ -437,7 +424,7 @@ public class Shell {
                 read = 0;
 
             } catch (IOException e) {
-                RootTools.log(e.getMessage(), 2, e);
+              //  RootTools.log(e.getMessage(), 2, e);
             }
         }
     };
@@ -450,16 +437,13 @@ public class Shell {
         return Shell.startRootShell(20000, 3);
     }
 
-    public static Shell startRootShell(int timeout) throws IOException, TimeoutException, RootDeniedException {
-        return Shell.startRootShell(timeout, 3);
-    }
 
     public static Shell startRootShell(int timeout, int retry) throws IOException, TimeoutException, RootDeniedException {
 
         Shell.shellTimeout = timeout;
 
         if (Shell.rootShell == null) {
-            RootTools.log("Starting Root Shell!");
+          //  RootTools.log("Starting Root Shell!");
             String cmd = "su";
             // keep prompting the user until they accept for x amount of times...
             int retries = 0;
@@ -468,13 +452,13 @@ public class Shell {
                     Shell.rootShell = new Shell(cmd);
                 } catch (IOException e) {
                     if (retries++ >= retry) {
-                        RootTools.log("IOException, could not start shell");
+                     //   RootTools.log("IOException, could not start shell");
                         throw e;
                     }
                 }
             }
         } else {
-            RootTools.log("Using Existing Root Shell!");
+        //    RootTools.log("Using Existing Root Shell!");
         }
 
         return Shell.rootShell;

@@ -1,8 +1,8 @@
 package com.derekziemba.torchplayer;
 
-import java.io.IOException;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootTools.execution.Shell;
 
 
  
@@ -20,8 +20,6 @@ public class TorchControlThread implements Runnable {
 	private String flashfile;
 	private Options option;
 	
-
-
 	public void config(String command, Options option) {
 		this.behaviorScheme = new BrightnessBehavior(command);
 		this.option = option;
@@ -31,31 +29,23 @@ public class TorchControlThread implements Runnable {
 	public void run() {		
 		flashfile = TorchConfig.getSysFsFile();
 		BrightnessTime[] steps = behaviorScheme.getSteps().toArray(new BrightnessTime[0]);	
+		Shell shell = RootTools.getExistingShell();
 		Boolean stop = false;
+		int cmdcount = 0;
 		while(!stop && !Thread.interrupted()){
 			for( BrightnessTime bt : steps) {
-				
-				execute( flashfile, bt.getLevel());
-				
+				shell.add(new CommandCapture(cmdcount, "echo " + bt.getLevel() + " > "+ flashfile));
 				try {
 					Thread.sleep(bt.getTime());
 				} catch (InterruptedException e) {
-					execute(flashfile,0);
+					shell.add(new CommandCapture(cmdcount+1, "echo " + 0 + " > "+ flashfile));
 					return;
 				}
+				cmdcount++;
 			}
 			stop = !(Options.REPEAT == option);
 		}
-		execute(flashfile,0);
-	}
-
-	private void execute(String file, int level) {
-		try {	
-			String commandString = 	"echo " + level + " > "+ file;	
-			RootTools.getExistingShell().add(new CommandCapture(0, commandString));
-		} catch (IOException e) {	
-			e.printStackTrace();	
-		}	
+		shell.add(new CommandCapture(cmdcount, "echo " + 0 + " > "+ flashfile));
 	}
 
 }
