@@ -33,16 +33,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.stericson.RootTools.containers.Mount;
-import com.stericson.RootTools.containers.Permissions;
-import com.stericson.RootTools.containers.Symlink;
-import com.stericson.RootTools.exceptions.RootDeniedException;
 import com.stericson.RootTools.execution.Command;
 import com.stericson.RootTools.execution.Shell;
 import com.stericson.RootTools.internal.RootToolsInternalMethods;
 import com.stericson.RootTools.internal.Runner;
 
 public final class RootTools {
+	
+	
 
     /**
      * This class is the gateway to every functionality within the RootTools library.The developer
@@ -65,7 +63,13 @@ public final class RootTools {
 	 * BusyBox methods and applets have been cut out. 
 	 * File utilities and management have been removed as well as the ability to write and install things
 	 */
+	
+	
     private static RootToolsInternalMethods rim = null;
+
+	public static final String TAG = "RootTools v3.4";
+	public static final int IAG = 2;
+	public static boolean accessGiven = false;
 
     public static void setRim(RootToolsInternalMethods rim) {
         RootTools.rim = rim;
@@ -84,7 +88,7 @@ public final class RootTools {
     // # Public Variables #
     // --------------------
 
-    public static boolean debugMode = false;
+    public static boolean debugMode = true;
     public static List<String> lastFoundBinaryPaths = new ArrayList<String>();
     public static String utilPath;
 
@@ -103,7 +107,7 @@ public final class RootTools {
      *
      * The default is 20000ms
      */
-    public static int default_Command_Timeout = 20000;
+    public static int default_Command_Timeout = 10000;
 
 
     // ---------------------------
@@ -197,21 +201,17 @@ public final class RootTools {
      * @throws IOException
      */
     public static Shell getShell(boolean root) throws IOException, TimeoutException, RootDeniedException {
-        return RootTools.getShell(root, 25000);
+        return RootTools.getShell(root, 5000);
     }
-
 
     /**
-     * This method checks whether a binary is installed.
-     *
-     * @param context    the current activity's <code>Context</code>
-     * @param binaryName binary file name; appended to /data/data/app.package/files/
-     * @return a <code>boolean</code> which indicates whether or not
-     *         the binary already exists.
+     * Warning: bypasses all checks, possible to get invalid shell or null
+     * @return
      */
-    public static boolean hasBinary(Context context, String binaryName) {
-        return getInternals().isBinaryAvailable(context, binaryName);
+    public static Shell getExistingShell() {
+    	return Shell.getRootShell();
     }
+    
 
     /**
      * @return <code>true</code> if your app has been given root access.
@@ -222,40 +222,12 @@ public final class RootTools {
     }
 
 
-    public static boolean isNativeToolsReady(int nativeToolsId, Context context) {
-        return getInternals().isNativeToolsReady(nativeToolsId, context);
-    }
-
-    /**
-     * This method can be used to to check if a process is running
-     *
-     * @param processName name of process to check
-     * @return <code>true</code> if process was found
-     * @throws TimeoutException (Could not determine if the process is running)
-     */
-    public static boolean isProcessRunning(final String processName) {
-        //TODO convert to new shell
-        return getInternals().isProcessRunning(processName);
-    }
-
     /**
      * @return <code>true</code> if su was found.
      */
     public static boolean isRootAvailable() {
         return findBinary("su");
     }
-
-    /**
-     * This method can be used to kill a running process
-     *
-     * @param processName name of process to kill
-     * @return <code>true</code> if process was found and killed successfully
-     */
-    public static boolean killProcess(final String processName) {
-        //TODO convert to new shell
-        return getInternals().killProcess(processName);
-    }
-
 
 
     /**
@@ -266,7 +238,7 @@ public final class RootTools {
     public static void offerSuperUser(Activity activity) {
         getInternals().offerSuperUser(activity);
     }
-
+ 
     /**
      * This will launch the Android market looking for SuperUser, but will return the intent fired
      * and starts the activity with startActivityForResult
@@ -277,19 +249,6 @@ public final class RootTools {
      */
     public static Intent offerSuperUser(Activity activity, int requestCode) {
         return getInternals().offerSuperUser(activity, requestCode);
-    }
-
-
-    /**
-     * This restarts only Android OS without rebooting the whole device. This does NOT work on all
-     * devices. This is done by killing the main init process named zygote. Zygote is restarted
-     * automatically by Android after killing it.
-     *
-     * @throws TimeoutException
-     */
-    public static void restartAndroid() {
-        RootTools.log("Restart Android");
-        killProcess("zygote");
     }
 
     /**
@@ -412,7 +371,7 @@ public final class RootTools {
         if (msg != null && !msg.equals("")) {
             if (debugMode) {
                 if (TAG == null) {
-                    TAG = Constants.TAG;
+                    TAG = RootTools.TAG;
                 }
 
                 switch (type) {
@@ -429,4 +388,7 @@ public final class RootTools {
             }
         }
     }
+
+
+
 }

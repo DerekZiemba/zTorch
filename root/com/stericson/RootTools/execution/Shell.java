@@ -28,13 +28,24 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Context;
+
+import com.stericson.RootTools.RootDeniedException;
 import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.exceptions.RootDeniedException;
+
+
+/**
+ * 
+ * @author Derek Ziemba
+ * Changes
+ * Shell OOM increased from -17 to -19
+ * Decreased shell timeout from 25ms to 5 ms
+ *
+ */
 
 public class Shell {
 
     //Statics -- visible to all
-    private static int shellTimeout = 25000;
+    private static int shellTimeout = 5000;
     private static final String token = "F*D^W@#FGF";
     private static Shell rootShell = null;
 
@@ -538,8 +549,8 @@ public class Shell {
 				}
 				field.setAccessible(true);
 				int pid = (Integer) field.get(shell.proc);
-                shell.out.write("(echo -17 > /proc/" + pid + "/oom_adj) &> /dev/null\n");
-                shell.out.write("(echo -17 > /proc/$$/oom_adj) &> /dev/null\n");
+                shell.out.write("(echo -19 > /proc/" + pid + "/oom_adj) &> /dev/null\n");
+                shell.out.write("(echo -19 > /proc/$$/oom_adj) &> /dev/null\n");
                 shell.out.flush();
 			} catch (Exception e) {
                 e.printStackTrace();

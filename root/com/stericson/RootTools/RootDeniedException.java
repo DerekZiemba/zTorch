@@ -20,24 +20,13 @@
  * limitations under that License.
  */
 
-package com.stericson.RootTools.containers;
+package com.stericson.RootTools;
 
-import java.io.File;
+public class RootDeniedException extends Exception {
 
-public class Symlink {
-    protected final File file;
-    protected final File symlinkPath;
+    private static final long serialVersionUID = -8713947214162841310L;
 
-    public Symlink(File file, File path) {
-        this.file = file;
-        symlinkPath = path;
-    }
-
-    public File getFile() {
-        return this.file;
-    }
-
-    public File getSymlinkPath() {
-        return symlinkPath;
+    public RootDeniedException(String error) {
+        super(error);
     }
 }

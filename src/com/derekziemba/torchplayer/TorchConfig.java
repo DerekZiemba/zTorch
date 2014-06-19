@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.derekziemba.ztorch.Z;
-import com.derekziemba.ztorch.activities.MainActivity;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.Command;
 import com.stericson.RootTools.execution.CommandCapture;

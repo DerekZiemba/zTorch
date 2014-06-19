@@ -1,0 +1,2 @@
+Decreased shell timeout from 25ms to 5 ms
+Shell OOM increased from -17 to -19
