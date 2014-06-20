@@ -5,11 +5,11 @@ import java.util.List;
 public class BrightnessBehavior {
 
 	private final List<BrightnessTime> steps;
-	private boolean error = false;
+
 	
 	public BrightnessBehavior(String behaviorScheme) {
 		List<BrightnessTime> temp = new ArrayList<BrightnessTime>();
-		error = InputParsers.stepExtractor(temp, behaviorScheme);
+		InputParsers.stepExtractor(temp, behaviorScheme);
 		this.steps = temp;
 	}
 	

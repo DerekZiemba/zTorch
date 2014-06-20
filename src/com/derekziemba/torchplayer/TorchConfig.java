@@ -7,21 +7,18 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 import com.derekziemba.root.Shell;
 import com.derekziemba.ztorch.Z;
 
 public class TorchConfig 
 {
-	private static final boolean ignoreDeviceValidity = true; //for testing in emulator
+	private static final boolean ignoreDeviceValidity = false; //for testing in emulator
 	
 	private static String FLASH_FILE = null;
-	private static final String SETTINGS_ROOT_ACCESS = "root_access_granted";
+
 	private static final String SETTINGS_VALID_SYSFILE = "valid_sysfs_file";
-	private static final String[] listOfFlashFiles = 
-	{
+	private static final String[] listOfFlashFiles = {
 			"/sys/class/camera/flash/rear_flash",
 			"/sys/class/camera/rear/rear_flash",
 			"/sys/class/leds/flashlight/brightness",
@@ -31,8 +28,8 @@ public class TorchConfig
 	};
 
 	public static final int AbsoluteMaxBrightness = 16;
-	private static final String SETTING_CURRENT_BRIGHTNESS = "flash_current_value";
-	private static final String SETTING_LIMIT_VALUE = "flash_limit_value";
+	private static final String CURRENT_BRIGHTNESS = "flash_current_value";
+	private static final String LIMIT_VALUE = "flash_limit_value";
 	private static final String SETTING_INCREMENTS_STEPS = "brightness_increment_steps";
 
 	/**
@@ -41,8 +38,7 @@ public class TorchConfig
 	 * @param context
 	 * @param value
 	 */
-	private static void torchStatusBroadcast(Context context, int value) 
-	{
+	private static void torchStatusBroadcast(Context context, int value) {
 		setCurrentBrightnessPref(context, value);
 		Intent broadcastIntent =
 				new Intent(Z.FLASH_VALUE_UPDATED_BROADCAST_NAME);
@@ -54,60 +50,34 @@ public class TorchConfig
 	/*******************************************************************************
 	 * Getters and setters
 	 *******************************************************************************/
-	
-	public static int getAbsMaxBrightness() 
-	{
-		return AbsoluteMaxBrightness;
+	public static int getCurrentBrightness(Context context) {
+		return Z.prefs(context).getInt(CURRENT_BRIGHTNESS, 0);
 	}
 	
-
-	public static int getCurrentBrightness(Context context) 
-	{
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getInt(SETTING_CURRENT_BRIGHTNESS, 0);
-	}
-	
-
-	private static void setCurrentBrightnessPref(Context context, int value) 
-	{
+	private static void setCurrentBrightnessPref(Context context, int value) {
 		int last = getCurrentBrightness(context);
-		if( (last == 0) ^ (value == 0) ) 
-		{
+		if( (last == 0) ^ (value == 0) ) {
 			NotificationManager mgr = (NotificationManager) context
 					.getSystemService(Context.NOTIFICATION_SERVICE);
 			mgr.cancelAll();
 		}
-		PreferenceManager.getDefaultSharedPreferences(context)
-			.edit()
-			.putInt(SETTING_CURRENT_BRIGHTNESS, value)
-			.commit();
+		Z.prefs(context).edit().putInt(CURRENT_BRIGHTNESS, value).commit();
 	}
 	
-
-	public static int getBrightnessLimitValue(Context context) 
-	{
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getInt(SETTING_LIMIT_VALUE, AbsoluteMaxBrightness);
+	public static int getBrightnessLimitValue(Context context) {
+		return Z.prefs(context).getInt(LIMIT_VALUE, AbsoluteMaxBrightness);
 	}
 
-	public static void setBrightnessLimitValue(Context context, int value) 
-	{
-		PreferenceManager.getDefaultSharedPreferences(context)
-			.edit()
-			.putInt(SETTING_LIMIT_VALUE, value)
-			.commit();
+	public static void setBrightnessLimitValue(Context context, int value) {
+		Z.prefs(context).edit().putInt(LIMIT_VALUE, value).commit();
 	}
 
-	public static int getIncrementSteps(Context context) 
-	{
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getInt(SETTING_INCREMENTS_STEPS, 6);
+	public static int getIncrementSteps(Context context) {
+		return Z.prefs(context).getInt(SETTING_INCREMENTS_STEPS, 6);
 	}
 
-	public static void setIncrementSteps(Context context, int value) 
-	{
-		PreferenceManager.getDefaultSharedPreferences(context).edit()
-				.putInt(SETTING_INCREMENTS_STEPS, value).commit();
+	public static void setIncrementSteps(Context context, int value) {
+		Z.prefs(context).edit().putInt(SETTING_INCREMENTS_STEPS, value).commit();
 	}
 
 	/**
@@ -118,26 +88,22 @@ public class TorchConfig
 	 * @param value
 	 * @return brightness level
 	 */
-	public static int setTorch(Context context, int value) 
-	{
-		if (checkValidity(context, value)) 
-		{
+	public static int setTorch(Context context, int value) {
+		if (checkValidity(context, value)) {
 			torchStatusBroadcast(context, value);
-			setTorchROOT(value);
+			Shell.getShell().exec("echo " + value + " > "+ getSysFsFile());
 		}
 		return value;
 	}
 
-	public static int setTorch(Context context, boolean increase) 
-	{
+	public static int setTorch(Context context, boolean increase) {
 		return setTorch(context, incrementedTorchValue(context, increase));
 	}
 
 	/*******************************************************************************
 	 * Privates For Changing The Torch Brightness
 	 *******************************************************************************/
-	private static int incrementedTorchValue(Context context, boolean increase) 
-	{
+	private static int incrementedTorchValue(Context context, boolean increase) {
 		int brightness = getCurrentBrightness(context);
 		int maxBright = getBrightnessLimitValue(context);
 		int increment = getIncrementSteps(context);
@@ -184,91 +150,31 @@ public class TorchConfig
 			return brightness;
 		}
 	}
-	
-	
-	private static boolean setTorchROOT(Shell shell, int value) 
-	{
-		try {
-			shell.exec("echo " + String.valueOf(value) + " > "+ getSysFsFile());
-			return true;
-		} catch (Exception e) 
-		{
-			return false;
-		}
-	}
 
-	
-	public static boolean setTorchROOT(int value) 
-	{
-		try {
-			setTorchROOT(Shell.getShell(), value);
-			return true;
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	
 	/*******************************************************************************
 	 * Root Access Methods and Compatibility Checking
 	 *******************************************************************************/
-	public static boolean checkCompatibility(Activity a) 
-	{
-		SharedPreferences settings =
-				PreferenceManager.getDefaultSharedPreferences(a);
-		
-		if(getSysFsFile() != null) 
-		{
-			settings.edit()
-				.putInt(SETTINGS_VALID_SYSFILE, 1)
-				.commit();
-			
-			/*
-			if(RootTools.isRootAvailable() & RootTools.isAccessGiven()) 
-			{
-				settings.edit()
-					.putInt(SETTINGS_ROOT_ACCESS, 1)
-					.commit();
-				return true;
-			} 
-			else {
-				settings.edit()
-					.putInt(SETTINGS_ROOT_ACCESS, 0)
-					.commit();
-			}
-			*/
+	public static boolean checkCompatibility(Activity a) {
+		if(getSysFsFile() != null) {
+			Z.prefs(a).edit().putInt(SETTINGS_VALID_SYSFILE, 1).commit();
 		} 
 		else {
-			settings.edit()
-				.putInt(SETTINGS_VALID_SYSFILE, 0)
-				.commit();
+			Z.prefs(a).edit().putInt(SETTINGS_VALID_SYSFILE, 0).commit();
 		}
 		return false;
 	}
 
 	
-	public static boolean checkValidity(Context c, int value) 
-	{
-		if (value > AbsoluteMaxBrightness | value < 0) 	
-		{	
+	public static boolean checkValidity(Context c, int value) {
+		if (value > AbsoluteMaxBrightness | value < 0) 	{	
 			Toast.makeText(c, "UNSUPPORTED OR INVALID: \n-BRIGHTNESS LEVEL", Toast.LENGTH_SHORT).show();
 			return false;	
 		}
-		SharedPreferences settings = 	PreferenceManager.getDefaultSharedPreferences(c);
 		
 		if(ignoreDeviceValidity) return ignoreDeviceValidity; //for android emulator
 		
-		if(settings.getInt(SETTINGS_VALID_SYSFILE, 0) == 1) 
-		{
-			if(settings.getInt(SETTINGS_ROOT_ACCESS, 0) == 1) 	
-			{					
-				return true;	
-			}
-			else {
-				Toast.makeText(c, "UNSUPPORTED OR INVALID: \n-ROOT ACCESS", Toast.LENGTH_SHORT).show();
-			}
+		if(Z.prefs(c).getInt(SETTINGS_VALID_SYSFILE, 0) == 1) {				
+			return true;	
 		}
 		else {
 			Toast.makeText(c, "UNSUPPORTED OR INVALID: \n-DEVICE", Toast.LENGTH_SHORT).show();
@@ -277,21 +183,16 @@ public class TorchConfig
 	}
 
 	
-	public static String getSysFsFile() 
-	{
+	public static String getSysFsFile() {
 		if (FLASH_FILE != null)  return FLASH_FILE;
 		
-		for (String filePath : listOfFlashFiles) 
-		{
+		for (String filePath : listOfFlashFiles) {
 			File flashFile = new File(filePath);
 			if (flashFile.exists()) {	FLASH_FILE = filePath;	}
 		}
 		return FLASH_FILE;
 	}
-
-	
 	
 }
-
 
 

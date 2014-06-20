@@ -91,7 +91,7 @@
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name="com.derekziemba.torchplayer.TorchPlayer"
+            android:name="com.derekziemba.ztorch.activities.TorchPlayer"
             android:label="@string/title_activity_torch_player" >
         </activity>
     </application>

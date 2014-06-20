@@ -23,7 +23,6 @@ import android.widget.ToggleButton;
 
 
 import com.derekziemba.torchplayer.TorchConfig;
-import com.derekziemba.torchplayer.TorchPlayer;
 import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
 
@@ -38,7 +37,7 @@ public class MainActivity extends Activity {
 	private Button subtractSingleButton = null;
 	
 
-	private int mAbsMaxVBrightness = TorchConfig.getAbsMaxBrightness();
+	private int mAbsMaxVBrightness = TorchConfig.AbsoluteMaxBrightness;
 
 	private TextView txtCurrentBrightnessValue = null; 
 	private TextView txtUsersBrightnessLimit = null; 
@@ -55,13 +54,12 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		initButtonViews();
-		initPreferences();
 		initTextViews();
 		
 		registerReceiver(mFlashValueUpdatedReceiver,new IntentFilter(Z.FLASH_VALUE_UPDATED_BROADCAST_NAME));
 
 		if (mBrightnessSlider != null) {	
-			mBrightnessSlider.setMax(mAbsMaxVBrightness);
+			mBrightnessSlider.setMax(TorchConfig.getBrightnessLimitValue(this));
 			brightnessSliderListener();
 			mBrightnessSlider.setProgress(TorchConfig.getCurrentBrightness(getApplicationContext()));
 		}
@@ -77,10 +75,6 @@ public class MainActivity extends Activity {
 			int progress = mBrightnessSlider.getProgress();
 			updateTorchBroadcast(progress);
 		} 
-		else {
-			//if (!RootTools.isRootAvailable()) {	Tools.createErrorDialog(this, Tools.Errors.NO_ROOT);	} 
-			//if (!RootTools.isAccessGiven()) { Tools.createErrorDialog(this, Tools.Errors.NO_ROOT_ACCESS);	} 
-		}
 	}
 	
 	/*******************************************************************************
@@ -94,10 +88,6 @@ public class MainActivity extends Activity {
 		subtractDoubleButton = (Button) findViewById(R.id.nnButton);
 		subtractSingleButton = (Button) findViewById(R.id.nButton);
 		addSingleButton = (Button) findViewById(R.id.pButton);
-	}
-	
-	private void initPreferences() {
-		mAbsMaxVBrightness = TorchConfig.getBrightnessLimitValue(this);
 	}
 	
 	private void initTextViews() {
@@ -114,7 +104,7 @@ public class MainActivity extends Activity {
 		
 		txtUsersBrightnessLimit.setText(getText(R.string.current_limit_val).toString().replace("%s", 
 				String.valueOf( TorchConfig.getBrightnessLimitValue(getApplicationContext())) +
-				" /" + String.valueOf(TorchConfig.getAbsMaxBrightness())) );
+				" /" + String.valueOf(TorchConfig.AbsoluteMaxBrightness)) );
 		
 		textViewLimitSlider.setText(getText(R.string.current_limit_val).toString().replace("%s", 
 				String.valueOf(TorchConfig.getBrightnessLimitValue(getApplicationContext()) )));
@@ -284,7 +274,7 @@ public class MainActivity extends Activity {
 		updateTorchBroadcast(0);
 		final View content = LayoutInflater.from(this).inflate(R.layout.new_maximum_layout, null);
 		final SeekBar seekBar = (SeekBar)content.findViewById(R.id.seekbar);
-		seekBar.setMax(TorchConfig.getAbsMaxBrightness());
+		seekBar.setMax(TorchConfig.AbsoluteMaxBrightness);
 		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			final TextView textView = (TextView)content.findViewById(R.id.instructions_textview);
 

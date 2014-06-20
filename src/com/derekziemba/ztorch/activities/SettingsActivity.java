@@ -119,7 +119,7 @@ public class SettingsActivity extends Activity {
 	private void refreshTextViews() {
 		valueMaxLevelTXTVIEW.setText(getText(R.string.current_limit_val).toString().replace("%s", 
 				String.valueOf( TorchConfig.getBrightnessLimitValue(getApplicationContext())) +
-				" /" + String.valueOf(TorchConfig.getAbsMaxBrightness())) );
+				" /" + String.valueOf(TorchConfig.AbsoluteMaxBrightness)) );
 		
 		valueDefaultLevelTXTVIEW.setText(getText(R.string.value_default_level).toString().replace("%s", 
 				String.valueOf(Z.getDefaultBrightness(getApplicationContext()) )));
@@ -288,7 +288,7 @@ public class SettingsActivity extends Activity {
 	 *******************************************************************************/
 	private void setNewMaxLevel() {
 		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				TorchConfig.getBrightnessLimitValue(getApplicationContext()), TorchConfig.getAbsMaxBrightness());
+				TorchConfig.getBrightnessLimitValue(getApplicationContext()), TorchConfig.AbsoluteMaxBrightness);
 		
 		sus.create(R.string.set_maximum, R.string.set_max_torch_limit_instructions, new DialogInterface.OnClickListener() {
 			@Override
@@ -306,7 +306,7 @@ public class SettingsActivity extends Activity {
 	
 	private void setNewDefaultLevel() {
 		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				Z.getDefaultBrightness(getApplicationContext()), TorchConfig.getAbsMaxBrightness());
+				Z.getDefaultBrightness(getApplicationContext()), TorchConfig.AbsoluteMaxBrightness);
 		
 		sus.create(R.string.default_level, R.string.set_default_level, new DialogInterface.OnClickListener() {
 			@Override

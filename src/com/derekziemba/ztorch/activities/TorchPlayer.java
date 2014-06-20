@@ -1,8 +1,7 @@
-package com.derekziemba.torchplayer;
+package com.derekziemba.ztorch.activities;
 
-import java.lang.reflect.Field;
-
-import com.derekziemba.root.Shell;
+import com.derekziemba.root.FileTools;
+import com.derekziemba.torchplayer.TorchControlThread;
 import com.derekziemba.torchplayer.TorchControlThread.Options;
 import com.derekziemba.ztorch.R;
 import com.derekziemba.ztorch.Z;
@@ -39,7 +38,10 @@ public class TorchPlayer extends Activity {
 		setContentView(R.layout.activity_torch_player);
 
 		playInstructions = (EditText) findViewById(R.id.TorchPlayerInstructions);
-		String playins = Z.prefs(this).getString(PLAY_INSTRUCTION,DEFAULT_INSTRUCTION);
+		
+		String playins = FileTools.getFileString(this,PLAY_INSTRUCTION);//Z.prefs(this).getString(PLAY_INSTRUCTION,DEFAULT_INSTRUCTION);
+		
+		
 		playInstructions.setText(getText(R.string.editable).toString().replace("%s",playins));
 
 		repeatCheckBox = (CheckBox) findViewById(R.id.repeatCheckBox);
@@ -61,7 +63,8 @@ public class TorchPlayer extends Activity {
 	public void onToggleClicked(View v) {
 		//Toast.makeText(getApplicationContext(),"Feature Not Ready, Will Crash App", Toast.LENGTH_SHORT).show();
 		String newplayins = playInstructions.getText().toString();
-		Z.prefs(getApplicationContext()).edit().putString(PLAY_INSTRUCTION,newplayins).commit();
+		//Z.prefs(getApplicationContext()).edit().putString(PLAY_INSTRUCTION,newplayins).commit();
+		FileTools.writeFile(getApplicationContext(),PLAY_INSTRUCTION,newplayins);
 		
 		boolean on = ((ToggleButton) v).isChecked();
 		
