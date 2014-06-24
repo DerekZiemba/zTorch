@@ -4,7 +4,6 @@ public class BrightnessTime {
 	
 	private int brightness;
 	private int time;
-	public String error = null;
 	
 	public BrightnessTime(int level, int milliseconds) {
 		this.brightness = level;
@@ -26,7 +25,5 @@ public class BrightnessTime {
 	public String toString() {
 		return getLevel() + "/" + InputParsers.fromMillis(getTime());
 	}
-	
-	
-	
+		
 }

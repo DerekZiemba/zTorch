@@ -1,0 +1,269 @@
+android.support.v4.app.NotificationCompat -> a.a.a.a.a:
+    android.support.v4.app.NotificationCompat$NotificationCompatImpl IMPL -> a
+    android.support.v4.app.NotificationCompat$NotificationCompatImpl access$000() -> a
+android.support.v4.app.NotificationCompat$Builder -> a.a.a.a.b:
+    android.content.Context mContext -> a
+    java.lang.CharSequence mContentTitle -> b
+    java.lang.CharSequence mContentText -> c
+    android.app.PendingIntent mContentIntent -> d
+    int mPriority -> e
+    java.util.ArrayList mActions -> f
+    android.app.Notification mNotification -> g
+    android.support.v4.app.NotificationCompat$Builder setSmallIcon$19d6eefc() -> a
+    android.support.v4.app.NotificationCompat$Builder setContentTitle(java.lang.CharSequence) -> a
+    android.support.v4.app.NotificationCompat$Builder setContentText(java.lang.CharSequence) -> b
+    android.support.v4.app.NotificationCompat$Builder setContentIntent(android.app.PendingIntent) -> a
+    android.support.v4.app.NotificationCompat$Builder setTicker(java.lang.CharSequence) -> c
+    android.support.v4.app.NotificationCompat$Builder setOngoing$7abcb88d() -> b
+    android.support.v4.app.NotificationCompat$Builder setPriority(int) -> a
+    android.support.v4.app.NotificationCompat$Builder addAction(int,java.lang.CharSequence,android.app.PendingIntent) -> a
+    android.app.Notification build() -> c
+android.support.v4.app.NotificationCompat$NotificationCompatImpl -> a.a.a.a.c:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplBase -> a.a.a.a.d:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplHoneycomb -> a.a.a.a.e:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplIceCreamSandwich -> a.a.a.a.f:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplJellybean -> a.a.a.a.g:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompatJellybean -> a.a.a.a.h:
+    android.app.Notification$Builder b -> a
+    void addAction(int,java.lang.CharSequence,android.app.PendingIntent) -> a
+    android.app.Notification build() -> a
+com.derekziemba.misc.Shell -> com.derekziemba.a.a:
+    com.derekziemba.misc.Shell rootShell -> a
+    java.lang.Process proc -> b
+    java.io.OutputStreamWriter writer -> c
+    void exec(java.lang.String) -> a
+    com.derekziemba.misc.Shell get() -> a
+com.derekziemba.torchplayer.BrightnessBehavior -> com.derekziemba.b.a:
+    java.util.List steps -> a
+    java.util.List getSteps() -> a
+    java.lang.String toString() -> toString
+com.derekziemba.torchplayer.BrightnessTime -> com.derekziemba.b.b:
+    int brightness -> a
+    int time -> b
+    int getLevel() -> a
+    int getTime() -> b
+    void set(int,int) -> a
+    java.lang.String toString() -> toString
+com.derekziemba.torchplayer.InputParsers -> com.derekziemba.b.c:
+    int icon -> a
+    java.lang.CharSequence title -> b
+    android.app.PendingIntent actionIntent -> c
+    boolean stepExtractor(java.util.List,java.lang.String) -> a
+    boolean stepParser(com.derekziemba.torchplayer.BrightnessTime,java.lang.String) -> a
+    java.lang.String valueFormatter$399c01d8(float) -> a
+    void cancelNotif(android.content.Context) -> a
+    void setNotif(android.content.Context,int) -> a
+    void putInt(android.content.Context,java.lang.String,int) -> a
+    int getInt(android.content.Context,java.lang.String) -> a
+    void putBool(android.content.Context,java.lang.String,boolean) -> a
+    java.lang.Boolean getBool(android.content.Context,java.lang.String) -> b
+com.derekziemba.torchplayer.Torch -> com.derekziemba.b.d:
+    java.lang.String FLASH_FILE -> a
+    java.lang.String[] listOfFlashFiles -> b
+    int setTorch(android.content.Context,boolean) -> a
+    int setTorch(android.content.Context,int) -> a
+    void setLevelCovertly(int) -> a
+    java.lang.String getSysFsFile() -> a
+com.derekziemba.torchplayer.TorchPlayerWorker -> com.derekziemba.b.e:
+    java.lang.Thread thread -> a
+    com.derekziemba.torchplayer.TorchPlayerWorker tpw -> b
+    com.derekziemba.torchplayer.BrightnessBehavior behaviorScheme -> c
+    com.derekziemba.torchplayer.TorchPlayerWorker$Options option -> d
+    void run() -> run
+    void play(java.lang.String,com.derekziemba.torchplayer.TorchPlayerWorker$Options) -> a
+    com.derekziemba.torchplayer.TorchPlayerWorker get() -> a
+com.derekziemba.torchplayer.TorchPlayerWorker$Options -> com.derekziemba.b.f:
+    com.derekziemba.torchplayer.TorchPlayerWorker$Options REPEAT -> a
+    com.derekziemba.torchplayer.TorchPlayerWorker$Options NOOP -> b
+com.derekziemba.ztorch.BootReceiver -> com.derekziemba.ztorch.BootReceiver:
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.derekziemba.ztorch.ZTorchWorker -> com.derekziemba.ztorch.ZTorchWorker:
+    void onHandleIntent(android.content.Intent) -> onHandleIntent
+    android.app.PendingIntent getWidgetIntent(android.content.Context,int,int) -> a
+    android.app.PendingIntent getNotifIntent(android.content.Context,int) -> a
+com.derekziemba.ztorch.activities.AboutActivity -> com.derekziemba.ztorch.activities.AboutActivity:
+    void onCreate(android.os.Bundle) -> onCreate
+    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+com.derekziemba.ztorch.activities.MainActivity -> com.derekziemba.ztorch.activities.MainActivity:
+    android.content.BroadcastReceiver mFlashValueUpdatedReceiver -> b
+    int glevel -> a
+    android.widget.SeekBar mBrightnessSlider -> c
+    android.widget.ToggleButton mToggleButton -> d
+    android.widget.TextView txtCurrentBrightnessValue -> e
+    android.widget.TextView txtUsersBrightnessLimit -> f
+    android.widget.TextView textViewLimitSlider -> g
+    android.widget.TextView txtDefaultWidgetBrightness -> h
+    void onCreate(android.os.Bundle) -> onCreate
+    void torchToggleInteraction(android.view.View) -> torchToggleInteraction
+    void saveDefaultBrightnessButtonInteraction(android.view.View) -> saveDefaultBrightnessButtonInteraction
+    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    void onDestroy() -> onDestroy
+    android.widget.SeekBar access$0(com.derekziemba.ztorch.activities.MainActivity) -> a
+    android.widget.ToggleButton access$1(com.derekziemba.ztorch.activities.MainActivity) -> b
+    android.widget.TextView access$2(com.derekziemba.ztorch.activities.MainActivity) -> c
+com.derekziemba.ztorch.activities.MainActivity$1 -> com.derekziemba.ztorch.activities.a:
+    com.derekziemba.ztorch.activities.MainActivity this$0 -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.derekziemba.ztorch.activities.MainActivity$2 -> com.derekziemba.ztorch.activities.b:
+    com.derekziemba.ztorch.activities.MainActivity this$0 -> a
+    void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
+    void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
+    void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
+com.derekziemba.ztorch.activities.MainActivity$3 -> com.derekziemba.ztorch.activities.c:
+    android.widget.TextView textView -> a
+    com.derekziemba.ztorch.activities.MainActivity this$0 -> b
+    void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
+    void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
+    void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
+com.derekziemba.ztorch.activities.MainActivity$4 -> com.derekziemba.ztorch.activities.d:
+    com.derekziemba.ztorch.activities.MainActivity this$0 -> a
+    android.widget.SeekBar val$seekBar -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.MainActivity$5 -> com.derekziemba.ztorch.activities.e:
+    com.derekziemba.ztorch.activities.MainActivity this$0 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.MainActivity$6 -> com.derekziemba.ztorch.activities.f:
+    com.derekziemba.ztorch.activities.MainActivity this$0 -> a
+    void onCancel(android.content.DialogInterface) -> onCancel
+com.derekziemba.ztorch.activities.SettingsActivity -> com.derekziemba.ztorch.activities.SettingsActivity:
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qMaxLimit -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qDefaultLevel -> b
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qQuickIncrements -> c
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qDoubleTap -> d
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qRapidTap -> e
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qTapTime -> f
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qPersistNotif -> g
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper qMinNotif -> h
+    android.widget.Button setMaxLevelButton -> i
+    android.widget.Button setDefaultLevelButton -> j
+    android.widget.Button setQuickIncButton -> k
+    android.widget.Button setTapTimeButton -> l
+    android.widget.ToggleButton doubleTapToggle -> m
+    android.widget.ToggleButton rapidTapToggle -> n
+    android.widget.ToggleButton persistNotifToggle -> o
+    android.widget.ToggleButton minNotifToggle -> p
+    android.widget.TextView valueMaxLevelTXTVIEW -> q
+    android.widget.TextView valueDefaultLevelTXTVIEW -> r
+    android.widget.TextView valueQuickIncrementTXTVIEW -> s
+    android.widget.TextView valueTapTimeTXTVIEW -> t
+    void onCreate(android.os.Bundle) -> onCreate
+    void refreshTextViews() -> a
+    void questionListener(com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper) -> a
+    void onBackPressed() -> onBackPressed
+    void access$0(com.derekziemba.ztorch.activities.SettingsActivity,com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper) -> a
+    android.widget.ToggleButton access$1(com.derekziemba.ztorch.activities.SettingsActivity) -> a
+    android.widget.ToggleButton access$2(com.derekziemba.ztorch.activities.SettingsActivity) -> b
+    void access$3(com.derekziemba.ztorch.activities.SettingsActivity) -> c
+    void access$4(com.derekziemba.ztorch.activities.SettingsActivity) -> d
+    void access$5(com.derekziemba.ztorch.activities.SettingsActivity) -> e
+    void access$6(com.derekziemba.ztorch.activities.SettingsActivity) -> f
+    void access$7(com.derekziemba.ztorch.activities.SettingsActivity) -> g
+com.derekziemba.ztorch.activities.SettingsActivity$1 -> com.derekziemba.ztorch.activities.g:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper val$bw -> b
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$10 -> com.derekziemba.ztorch.activities.h:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$11 -> com.derekziemba.ztorch.activities.i:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting val$sus -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$12 -> com.derekziemba.ztorch.activities.j:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting val$sus -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$13 -> com.derekziemba.ztorch.activities.k:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting val$sus -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$14 -> com.derekziemba.ztorch.activities.l:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting val$sus -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$2 -> com.derekziemba.ztorch.activities.m:
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$3 -> com.derekziemba.ztorch.activities.n:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$4 -> com.derekziemba.ztorch.activities.o:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$5 -> com.derekziemba.ztorch.activities.p:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$6 -> com.derekziemba.ztorch.activities.q:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$7 -> com.derekziemba.ztorch.activities.r:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$8 -> com.derekziemba.ztorch.activities.s:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$9 -> com.derekziemba.ztorch.activities.t:
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$ButtonWrapper -> com.derekziemba.ztorch.activities.u:
+    android.widget.Button button -> c
+    int titleId -> a
+    int messageId -> b
+    android.widget.Button getButton() -> a
+com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting -> com.derekziemba.ztorch.activities.v:
+    android.content.Context context -> b
+    android.view.View content -> c
+    android.widget.SeekBar seekBar -> d
+    int current -> e
+    int text -> f
+    int title -> g
+    int max -> h
+    com.derekziemba.ztorch.activities.SettingsActivity this$0 -> a
+    int progress() -> a
+    void create(int,int,android.content.DialogInterface$OnClickListener) -> a
+    android.view.View access$0(com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting) -> a
+    int access$1(com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting) -> b
+com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting$1 -> com.derekziemba.ztorch.activities.w:
+    android.widget.TextView textView -> a
+    com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting this$1 -> b
+    void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
+    void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
+    void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
+com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting$2 -> com.derekziemba.ztorch.activities.x:
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.derekziemba.ztorch.activities.SettingsActivity$SeekbarUpdateSetting$3 -> com.derekziemba.ztorch.activities.y:
+    void onCancel(android.content.DialogInterface) -> onCancel
+com.derekziemba.ztorch.activities.TorchPlayer -> com.derekziemba.ztorch.activities.TorchPlayer:
+    android.widget.EditText playInstructions -> a
+    android.widget.CheckBox repeatCheckBox -> b
+    void onCreate(android.os.Bundle) -> onCreate
+    void onToggleClicked(android.view.View) -> onToggleClicked
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void onBackPressed() -> onBackPressed
+com.derekziemba.ztorch.providers.NotificationProvider -> com.derekziemba.ztorch.providers.a:
+    android.content.Context context -> a
+    boolean persist -> b
+    boolean minimize -> c
+    int level -> d
+    android.app.NotificationManager mgr -> e
+    android.support.v4.app.NotificationCompat$Builder builder -> f
+    android.content.Intent openMainApp -> g
+    android.app.PendingIntent pending -> h
+    int priority -> i
+    void create() -> a
+    void common() -> b
+    void publish() -> c
+com.derekziemba.ztorch.providers.TorchWidgetProvider -> com.derekziemba.ztorch.providers.TorchWidgetProvider:
+    android.widget.RemoteViews rv -> a
+    android.widget.RemoteViews getRemoteView(android.content.Context) -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
+com.derekziemba.ztorch.providers.TwoBy1WidgetProvider -> com.derekziemba.ztorch.providers.TwoBy1WidgetProvider:
+    android.widget.RemoteViews rv -> a
+    void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate

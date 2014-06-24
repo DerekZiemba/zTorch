@@ -14,64 +14,6 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
-    <SeekBar
-        android:id="@+id/flashlightBrightnessSlider"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:max="16" />
-
-    <ToggleButton
-        android:id="@+id/flashlightToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ppButton"
-        android:layout_alignLeft="@+id/flashlightBrightnessSlider"
-        android:layout_alignRight="@+id/ppButton"
-        android:layout_marginBottom="30dp"
-        android:text="@string/action_toggle_button" />
-
-    <Button
-        android:id="@+id/ppButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/flashlightBrightnessSlider"
-        android:layout_alignRight="@+id/flashlightBrightnessSlider"
-        android:layout_marginBottom="20dp"
-        android:text="++" />
-
-    <Button
-        android:id="@+id/pButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ppButton"
-        android:layout_alignBottom="@+id/ppButton"
-        android:layout_toLeftOf="@+id/ppButton"
-        android:text="+" />
-
-    <Button
-        android:id="@+id/nnButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/nButton"
-        android:layout_alignBottom="@+id/nButton"
-        android:layout_alignLeft="@+id/flashlightBrightnessSlider"
-        android:text="--" />
-
-    <Button
-        android:id="@+id/nButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/pButton"
-        android:layout_alignBottom="@+id/pButton"
-        android:layout_toRightOf="@+id/nnButton"
-        android:text="-" />
-
     <Button
         android:id="@+id/widgetLevelButton"
         style="?android:attr/buttonStyleSmall"
@@ -79,9 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/flashlightToggleButton"
         android:layout_alignLeft="@+id/flashlightToggleButton"
-        android:layout_alignRight="@+id/ppButton"
+        android:layout_alignRight="@+id/flashlightBrightnessSlider"
         android:layout_marginBottom="30dp"
-        android:text="@string/action_set_widget_brightness" />
+        android:text="@string/action_set_widget_brightness" 
+        android:onClick="saveDefaultBrightnessButtonInteraction"/>
 
     <TextView
         android:id="@+id/textViewDefaultBrightness"
@@ -90,7 +33,7 @@
         android:layout_above="@+id/flashlightToggleButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:text="@string/current_default_brightness" />
+        android:text="@string/default_brightness" />
 
     <TextView
         android:id="@+id/textViewCurrentLimitText"
@@ -112,14 +55,6 @@
         android:text="@string/current_limit_val" />
 
     <TextView
-        android:id="@+id/textViewCurrentLimitSlider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/flashlightBrightnessSlider"
-        android:layout_alignTop="@+id/flashlightBrightnessSlider"
-        android:text="@string/current_limit_val" />
-
-    <TextView
         android:id="@+id/TextView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -135,21 +70,43 @@
         android:layout_centerHorizontal="true"
         android:text="@string/seek_bar" />
 
-    <TextView
-        android:id="@+id/valueTapTime_TXTVIEW"
+    <ToggleButton
+        android:id="@+id/flashlightToggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/pButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
-        android:text="@string/current_level" />
+        android:layout_above="@+id/flashlightBrightnessSlider"
+        android:layout_alignLeft="@+id/TextView02"
+        android:layout_alignRight="@+id/flashlightBrightnessSlider"
+        android:layout_marginBottom="24dp"
+        android:text="@string/action_toggle_button"
+        android:onClick="torchToggleInteraction" />
+
+    <SeekBar
+        android:id="@+id/flashlightBrightnessSlider"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/textViewCurrentLimitText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:max="16" />
+
+    <TextView
+        android:id="@+id/textViewCurrentLimitSlider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/flashlightBrightnessSlider"
+        android:layout_marginLeft="310dp"
+        android:layout_toRightOf="@+id/TextView02"
+        android:text="@string/current_limit_val" />
 
     <TextView
         android:id="@+id/textViewBrightnessValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewCurrentLimitSlider"
         android:layout_alignLeft="@+id/textViewCurrentLimit"
-        android:layout_alignTop="@+id/pButton"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/current_level_value" />
 
 </RelativeLayout>

@@ -15,15 +15,6 @@
         android:text="@string/about_text" />
 
     <TextView
-        android:id="@+id/TextView04"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TorchPlayerInstructions"
-        android:layout_below="@+id/TorchPlayerInstructions"
-        android:layout_marginTop="14dp"
-        android:text="@string/about_bugs" />
-
-    <TextView
         android:id="@+id/TextView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

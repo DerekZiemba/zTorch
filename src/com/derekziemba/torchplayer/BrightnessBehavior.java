@@ -6,7 +6,6 @@ public class BrightnessBehavior {
 
 	private final List<BrightnessTime> steps;
 
-	
 	public BrightnessBehavior(String behaviorScheme) {
 		List<BrightnessTime> temp = new ArrayList<BrightnessTime>();
 		InputParsers.stepExtractor(temp, behaviorScheme);

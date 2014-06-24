@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.derekziemba.ztorch"
-    android:versionCode="123"
-    android:versionName="1.2" >
+    android:versionCode="140"
+    android:versionName="1.4" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
@@ -42,7 +42,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.derekziemba.ztorch.providers.TorchWidgetProvider"
+            android:name="com.derekziemba.ztorch.providers.TwoBy1WidgetProvider"
             android:label="@string/widget_label" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -59,7 +59,7 @@
                 android:resource="@xml/widgetproviderinfo" />
         </receiver>
         <receiver
-            android:name="com.derekziemba.ztorch.providers.StaticTorchWidgetProvider"
+            android:name="com.derekziemba.ztorch.providers.TorchWidgetProvider"
             android:label="@string/widget_static_label" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -77,10 +77,10 @@
         </receiver>
 
         <service
-            android:name="com.derekziemba.ztorch.ResultsService"
+            android:name="com.derekziemba.ztorch.ZTorchWorker"
             android:enabled="true"
             android:exported="false"
-            android:label="Notification action results receiver" />
+            android:label="Notification action receiver and widget receiver" />
 
         <activity
             android:name="com.derekziemba.ztorch.activities.SettingsActivity"

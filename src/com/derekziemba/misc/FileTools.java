@@ -1,4 +1,4 @@
-package com.derekziemba.root;
+package com.derekziemba.misc;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -1,6 +1,5 @@
 package com.derekziemba.ztorch.providers;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,11 +10,10 @@ import android.support.v4.app.NotificationCompat;
 
 import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
-import com.derekziemba.ztorch.ResultsService;
+import com.derekziemba.ztorch.ZTorchWorker;
 import com.derekziemba.ztorch.activities.MainActivity;
 
-@SuppressLint({ "InlinedApi", "NewApi" })
-public class Notifier {
+public class NotificationProvider {
 
 	private Context context = null;
 	private boolean persist = false;
@@ -37,7 +35,7 @@ public class Notifier {
 	
 	int priority = Notification.PRIORITY_LOW; //Default
 	
-	public Notifier(Context context,  boolean persist, boolean minimize, int level) {
+	public NotificationProvider(Context context,  boolean persist, boolean minimize, int level) {
 		this.context = context;
 		this.persist = persist;
 		this.minimize = minimize;
@@ -82,19 +80,19 @@ public class Notifier {
 		builder.setTicker(context.getString(R.string.ticker_text));
 		
 		if(persist) {
-			builder.addAction(R.drawable.ic_stat_minus, "OFF", getPendingIntent(context, 0));
+			builder.addAction(R.drawable.ic_stat_minus, "OFF", ZTorchWorker.getNotifIntent(context, 0));
 		}
 		else {
-			builder.addAction(R.drawable.ic_stat_minus, "CLOSE", getPendingIntent(context, 0));
+			builder.addAction(R.drawable.ic_stat_minus, "CLOSE", ZTorchWorker.getNotifIntent(context, 0));
 		}
-		builder.addAction(R.drawable.ic_stat_minus, "", getPendingIntent(context, -1));
-		builder.addAction(R.drawable.ic_stat_plus, "", getPendingIntent(context, 1));;
+		builder.addAction(R.drawable.ic_stat_minus, "", ZTorchWorker.getNotifIntent(context, -1));
+		builder.addAction(R.drawable.ic_stat_plus, "", ZTorchWorker.getNotifIntent(context, 1));;
 		publish();
 	}
 	
 	private void priorityLow() {  //Persists is on but not hidden
 		common();
-		builder.addAction(R.drawable.ic_stat_plus, "TURN ON", getPendingIntent(context, 1));;
+		builder.addAction(R.drawable.ic_stat_plus, "TURN ON", ZTorchWorker.getNotifIntent(context, 1));;
 		publish();
 	}
 		
@@ -108,6 +106,11 @@ public class Notifier {
 	}
 	
 
+	/*
+	 * CHANGE THIS TO NEW METHOD
+	 */
+	//TODO: 
+	/*
 	private static PendingIntent getPendingIntent(Context context, int action) {
 		Intent intent = new Intent(context, ResultsService.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -115,7 +118,7 @@ public class Notifier {
 		return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}	
 	
-
+*/
 
 
 }

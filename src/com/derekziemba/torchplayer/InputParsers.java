@@ -54,13 +54,12 @@ public class InputParsers {
 		}
 		int level = Integer.valueOf(lt[0].replaceAll("[^0-9]+",""));
 		int millis = InputParsers.toMillis(lt[1]);
-		if(level >= 0 & level <= TorchConfig.AbsoluteMaxBrightness){
+		if(level >= 0 & level <= Torch.AbsMaxLvl){
 			if(millis > 0) {
 				result.set(level,millis);
 				return true;
 			}
 		}
-		result.error = "Invalid Brightness Level or Time";
 		return false;	
 	}
 

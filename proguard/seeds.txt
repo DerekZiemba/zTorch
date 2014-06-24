@@ -1,0 +1,19 @@
+com.derekziemba.ztorch.BootReceiver
+com.derekziemba.ztorch.BootReceiver: BootReceiver()
+com.derekziemba.ztorch.ZTorchWorker
+com.derekziemba.ztorch.ZTorchWorker: ZTorchWorker()
+com.derekziemba.ztorch.activities.AboutActivity
+com.derekziemba.ztorch.activities.AboutActivity: AboutActivity()
+com.derekziemba.ztorch.activities.MainActivity
+com.derekziemba.ztorch.activities.MainActivity: MainActivity()
+com.derekziemba.ztorch.activities.MainActivity: void torchToggleInteraction(android.view.View)
+com.derekziemba.ztorch.activities.MainActivity: void saveDefaultBrightnessButtonInteraction(android.view.View)
+com.derekziemba.ztorch.activities.SettingsActivity
+com.derekziemba.ztorch.activities.SettingsActivity: SettingsActivity()
+com.derekziemba.ztorch.activities.TorchPlayer
+com.derekziemba.ztorch.activities.TorchPlayer: TorchPlayer()
+com.derekziemba.ztorch.activities.TorchPlayer: void onToggleClicked(android.view.View)
+com.derekziemba.ztorch.providers.TorchWidgetProvider
+com.derekziemba.ztorch.providers.TorchWidgetProvider: TorchWidgetProvider()
+com.derekziemba.ztorch.providers.TwoBy1WidgetProvider
+com.derekziemba.ztorch.providers.TwoBy1WidgetProvider: TwoBy1WidgetProvider()

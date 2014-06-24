@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.derekziemba.torchplayer.TorchConfig;
+import com.derekziemba.torchplayer.Torch;
 import com.derekziemba.ztorch.Z;
 import com.derekziemba.ztorch.R;
 
@@ -117,18 +117,17 @@ public class SettingsActivity extends Activity {
 	}
 	
 	private void refreshTextViews() {
-		valueMaxLevelTXTVIEW.setText(getText(R.string.current_limit_val).toString().replace("%s", 
-				String.valueOf( TorchConfig.getBrightnessLimitValue(getApplicationContext())) +
-				" /" + String.valueOf(TorchConfig.AbsoluteMaxBrightness)) );
+		valueMaxLevelTXTVIEW.setText(getText(R.string.current_limit_val).toString()
+			.replace("%s", Z.getInt(this,Torch.INCREMENTS)+"") +" /" + String.valueOf(Torch.AbsMaxLvl));
 		
-		valueDefaultLevelTXTVIEW.setText(getText(R.string.value_default_level).toString().replace("%s", 
-				String.valueOf(Z.getDefaultBrightness(getApplicationContext()) )));
+		valueDefaultLevelTXTVIEW.setText(getText(R.string.value_default_level).toString()
+			.replace("%s", Z.getInt(this, Z.DEFAULT_BRIGHTNESS)+""));
 		
-		valueQuickIncrementTXTVIEW.setText(getText(R.string.value_quick_increments).toString().replace("%s", 
-				String.valueOf(TorchConfig.getIncrementSteps(getApplicationContext()) )));
+		valueQuickIncrementTXTVIEW.setText(getText(R.string.value_quick_increments).toString()
+			.replace("%s", Z.getInt(this,Torch.INCREMENTS)+""));
 		
-		valueTapTimeTXTVIEW.setText(getText(R.string.value_tap_time).toString().replace("%s",
-				String.valueOf(Z.getTapTime(this))));
+		valueTapTimeTXTVIEW.setText(getText(R.string.value_tap_time).toString()
+			.replace("%s",Z.getInt(this,Z.TAP_TIME)+""));
 	}
 	
 	
@@ -179,66 +178,78 @@ public class SettingsActivity extends Activity {
 	}
 	
 	private void doubleTapListener() {
-		doubleTapToggle.setChecked(Z.getDoubleTap(this));
+		doubleTapToggle.setChecked(Z.getBool(this,Z.DOUBLE_TAP));
 		doubleTapToggle.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();
 				
-				if(Z.getDoubleTap(context)) {
-					Z.setDoubleTap(context,false);
+				if(Z.getBool(context,Z.DOUBLE_TAP)) {
+					Z.putBool(context, Z.DOUBLE_TAP, false);
 				}
 				else {
-					if(Z.getRapidTap(context)){
-						Z.setRapidTap(context,false);
+					if(Z.getBool(context,Z.RAPID_TAP)){
+						Z.putBool(context, Z.RAPID_TAP, false);
 						rapidTapToggle.setChecked(false);
 					}
-					Z.setDoubleTap(context,true);
+					Z.putBool(context, Z.DOUBLE_TAP, true);
 				}
 			}
 		});
 	}
 	
 	private void rapidTapListener() {
-		rapidTapToggle.setChecked(Z.getRapidTap(this));
+		rapidTapToggle.setChecked(Z.getBool(this,Z.RAPID_TAP));
 		rapidTapToggle.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();
-				if(Z.getRapidTap(context)) {
-					Z.setRapidTap(context,false);
+				if(Z.getBool(context,Z.RAPID_TAP)) {
+					Z.putBool(context, Z.RAPID_TAP, false);
 				}
 				else {
-					if(Z.getDoubleTap(context)){
-						Z.setDoubleTap(context,false);
+					if(Z.getBool(context,Z.DOUBLE_TAP)){
+						Z.putBool(context, Z.DOUBLE_TAP, false);
 						doubleTapToggle.setChecked(false);
 					}
-					Z.setRapidTap(context,true);
+					Z.putBool(context, Z.RAPID_TAP, true);
 				}
 			}
 		});
 	}
 	
 	private void persistNotifListener() {
-		persistNotifToggle.setChecked(Z.getPersistNotif(this));
+		persistNotifToggle.setChecked(Z.getBool(this,Z.PERSISTENT_NOTIF));
 		persistNotifToggle.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Context context = getApplicationContext();			
-				if(Z.getPersistNotif(context)) {	Z.setPersistNotif(context,false);	}
-				else {	Z.setPersistNotif(context,true);	}
+				Context context = getApplicationContext();	
+				Z.cancelNotif(context);
+				if(Z.getBool(context,Z.PERSISTENT_NOTIF)) {	
+					Z.putBool(context,Z.PERSISTENT_NOTIF,false);
+				}
+				else {	
+					Z.putBool(context,Z.PERSISTENT_NOTIF,true);	
+				}
+				Z.setNotif(context,0);
 			}
 		});
 	}
 	
 	private void minNotifListener() {
-		minNotifToggle .setChecked(Z.getMinimizeNotif(this));
+		minNotifToggle .setChecked(Z.getBool(this,Z.MINIMIZE_NOTIF));
 		minNotifToggle .setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Context context = getApplicationContext();
-				if(Z.getMinimizeNotif(context)) {	Z.setMinimizeNotif(context,false);	}
-				else {	Z.setMinimizeNotif(context,true);	}
+				Z.cancelNotif(context);
+				if(Z.getBool(context,Z.MINIMIZE_NOTIF)) {	
+					Z.putBool(context,Z.MINIMIZE_NOTIF,false);	
+				}
+				else {	
+					Z.putBool(context,Z.MINIMIZE_NOTIF,true);	
+				}
+				Z.setNotif(context,0);
 			}
 		});
 	}	
@@ -287,17 +298,17 @@ public class SettingsActivity extends Activity {
 	 * Push Button Dialogs
 	 *******************************************************************************/
 	private void setNewMaxLevel() {
-		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				TorchConfig.getBrightnessLimitValue(getApplicationContext()), TorchConfig.AbsoluteMaxBrightness);
+		final SeekbarUpdateSetting sus = 
+				new SeekbarUpdateSetting(this, Z.getInt(this,Torch.LIMIT_VALUE), Torch.AbsMaxLvl);
 		
 		sus.create(R.string.set_maximum, R.string.set_max_torch_limit_instructions, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				int mAbsMaxVBrightness = sus.progress();
-				if(mAbsMaxVBrightness == 0) { mAbsMaxVBrightness = 1; }
-				TorchConfig.setBrightnessLimitValue(getApplicationContext(),mAbsMaxVBrightness);
-				if(mAbsMaxVBrightness < Z.getDefaultBrightness(getApplicationContext())){
-					Z.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
+				int maxLevel = sus.progress();
+				if(maxLevel == 0) { maxLevel = 1; }
+				Z.putInt(getApplicationContext(),Torch.LIMIT_VALUE,maxLevel);
+				if(maxLevel < Z.getInt(getApplicationContext(), Z.DEFAULT_BRIGHTNESS)){
+					Z.putInt(getApplicationContext(), Z.DEFAULT_BRIGHTNESS,maxLevel);
 				}
 				refreshTextViews();
 			}
@@ -305,35 +316,35 @@ public class SettingsActivity extends Activity {
 	}
 	
 	private void setNewDefaultLevel() {
-		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				Z.getDefaultBrightness(getApplicationContext()), TorchConfig.AbsoluteMaxBrightness);
+		final SeekbarUpdateSetting sus = 
+				new SeekbarUpdateSetting(this, Z.getInt(this, Z.DEFAULT_BRIGHTNESS), Torch.AbsMaxLvl);
 		
 		sus.create(R.string.default_level, R.string.set_default_level, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				int mAbsMaxVBrightness = sus.progress();
-				if(mAbsMaxVBrightness == 0) { mAbsMaxVBrightness = 1; }
-				Z.setDefaultBrightness(getApplicationContext(),mAbsMaxVBrightness);
+				int glevel = sus.progress();
+				if(glevel == 0) { glevel = 1; }
+				Z.putInt(getApplicationContext(), Z.DEFAULT_BRIGHTNESS,glevel);
 				refreshTextViews();
 			}
 		});
 	}
 	
 	private void setNewQuickIncrement() {
-		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				TorchConfig.getIncrementSteps(getApplicationContext()), TorchConfig.getBrightnessLimitValue(getApplicationContext()));
+		final SeekbarUpdateSetting sus = 
+				new SeekbarUpdateSetting(this, Z.getInt(this,Torch.INCREMENTS), Z.getInt(this,Torch.LIMIT_VALUE));
 		
 		sus.create(R.string.quick_increments, R.string.set_quick_increments, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				int x = sus.progress();
 				if(x == 0) { x = 1; }
-				int max = Z.getDefaultBrightness(getApplicationContext());
+				int max = Z.getInt(getApplicationContext(), Z.DEFAULT_BRIGHTNESS);
 				if(x > max){
 					Toast.makeText(getApplicationContext(), R.string.quick_increment_to_high, Toast.LENGTH_SHORT).show();
 					x = max;
-				}					
-				TorchConfig.setIncrementSteps(getApplicationContext(),x);
+				}	
+				Z.putInt(getApplicationContext(),Torch.INCREMENTS,x);
 				refreshTextViews();
 			}
 		});
@@ -341,15 +352,15 @@ public class SettingsActivity extends Activity {
 	
 	
 	private void setNewTapTime() {
-		final SeekbarUpdateSetting sus = new SeekbarUpdateSetting(this, 0, 
-				Z.getTapTime(getApplicationContext()), Z.max_tap_time);
-		
+		final SeekbarUpdateSetting sus = 
+			new SeekbarUpdateSetting(this, Z.getInt(this,Z.TAP_TIME), Z.max_tap_time);
+				
 		sus.create(R.string.tap_time, R.string.set_tap_time, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				int x = sus.progress();
 				if(x == 0) { x = 100; }		
-				Z.setTapTime(getApplicationContext(),x);
+				Z.putInt(getApplicationContext(), Z.TAP_TIME,x);
 				refreshTextViews();
 			}
 		});
@@ -364,7 +375,7 @@ public class SettingsActivity extends Activity {
 		private Context context = null;
 		private View content = null;
 		private SeekBar seekBar = null;
-		private int min, current, text, title = 0;
+		private int current, text, title = 0;
 		private int max = 1;
 		
 		/**
@@ -374,11 +385,10 @@ public class SettingsActivity extends Activity {
 		 * @param current = initially set seekbar to this value 
 		 * @param max = maximum seekbar value
 		 */
-		public SeekbarUpdateSetting(Context cont, int min, int current, int max){
+		public SeekbarUpdateSetting(Context cont, int current, int max){
 			this.context = cont;
 			this.content = LayoutInflater.from(context).inflate(R.layout.new_maximum_layout, null);
 			this.seekBar = (SeekBar)content.findViewById(R.id.seekbar);
-			this.min = min;
 			this.current = current;
 			this.max = max;
 
